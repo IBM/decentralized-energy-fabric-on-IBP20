@@ -1,5 +1,3 @@
-# decentralized-energy-fabric
-
 # Decentralized Energy with Blockchain
 
 A key application of Blockchain being currently explored is a Decentralized Energy network. The idea stems from a neighborhood where certain Residents are producing energy through Solar panels or other means, and can sell excess energy to Residents needing energy. The transactions would be based on coins in each Resident's account. As per a pre-determined contract and rate, the coins would be debited from the consumer and credited to the producer, for a certain billing period. Each transaction would need to be atomic and added to a Blockchain ledger for trust and verification. The network can include Banks to transact coins for Fiat currency (USD). The network can have Utility Company who can buy or provide energy through the network.
@@ -39,11 +37,7 @@ The developer uses the IBM Blockchain Platform Extension for VS Code to:
 + [Node.js](https://nodejs.org/en/) is an open source, cross-platform JavaScript run-time environment that executes server-side JavaScript code.
 
 
-## Running the application
-
-Follow these steps to set up and run this code pattern. The steps are described in detail below.
-
-### Prerequisites
+## Prerequisites
 
 You will need to follow the requirements for the [IBM Blockchain Platform Extension for VS Code](https://github.com/IBM-Blockchain/blockchain-vscode-extension/blob/master/README.md#requirements):
 
@@ -53,7 +47,7 @@ You will need to follow the requirements for the [IBM Blockchain Platform Extens
 - [Docker version v17.06.2-ce or greater](https://www.docker.com/get-docker)
 - [Docker Compose v1.14.0 or greater](https://docs.docker.com/compose/install/)
 
-## Clean up Docker images
+### Clean up Docker images
 
 Before starting, you need to do a little housekeeping. Run the following command to kill any stale or active containers:
 
@@ -75,7 +69,7 @@ Finally, if you’ve already run through this tutorial or tried it previously, y
 
 It will remove any lingering container images related to previous instantiated decentralizedenergy containers.
 
-## Launch VSCode and install the IBM Blockchain Platform extension for VSCode
+### Launch VSCode and install the IBM Blockchain Platform extension for VSCode
 
 You can launch VSCode from the task bar, or by typing code in a terminal window.
 
@@ -83,6 +77,9 @@ Now you need to install the IBM Blockchain Platform VSCode extension — you’l
 
 Figure 2. Find and install the extension from VSCode marketplace <GET PIC FROM COMMERICAL PAPER TUTORIAL>
 
+# Running the application
+
+Follow these steps to set up and run this code pattern. The steps are described in detail below.
 
 ### Steps
 
@@ -167,7 +164,7 @@ Once this is successfully instantiated, you should see a successful notification
 
 ## 3. Run the application
 
-You have installed and instantiated your smart contract on the blockchain. Now it is time to try out the smart contract transactions. In a new terminal, navigate to the `web-app` directory:
+You have installed and instantiated your smart contract on the blockchain. Now it is time to try out the smart contract transactions. In a new terminal, navigate to the `application` directory:
 
   ```bash
   cd decentralized-energy-fabric/application/
@@ -195,7 +192,7 @@ The application will perform the following transactions:
 You should see the following:
 
 <div style='border: 2px solid #f00;'>
-  <img width="1000" src="images/run-application-results.png">
+  <img width="1000" src="docs/doc-images/run-application-results.png">
 </div>
 
 
