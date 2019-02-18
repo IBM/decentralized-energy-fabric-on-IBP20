@@ -1,7 +1,7 @@
-# Decentralized Energy with Blockchain
+# Decentralized Energy with IBM Blockchain Platform 2.0
 
 
->Hyperledger Fabric sample Fabcar on IBM Blockchain Platform 2.0
+>Hyperledger Fabric sample Decentralized Energy on IBM Blockchain Platform 2.0
 
 This code pattern demonstrates setting up a network on the IBM Blockchain Platform 2.0 and deploying the Decentralized smart contract on the network.  Next, we generate client side certificates so the developer can subsequently enroll an application identity and then submit transactions on the smart contract.   The application is setup with a Node.js server using the Fabric Node SDK to process requests to the network.
 
@@ -414,6 +414,28 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
     ```
 
+
+## Troubleshooting
+
+* If you receive the following error on submitting transaction:
+`error: [Client.js]: Channel not found for name mychannel`
+
+  It is safe to ignore this error because the ibp2.0 beta has service discovery enabled. (In order to use service discovery to find other peers please define anchor peers for your channel in the ui). If you really want the message to go away you can add the channels section to the connection profile, but it is a warning rather than a true error telling the user the channel is found but not in the connection profile 
+
+  As an example you can manually add the following json and updated the IP address and ports manually:
+  
+  ```
+  "channels": {
+          "mychannel": {
+              "orderers": [
+                  "169.46.208.151:32078"
+              ],
+              "peers": {
+                  "169.46.208.151:31017": {}
+              }
+          }
+      },
+  ```
 
 ## Extending the code pattern
 This application can be expanded in a couple of ways:
