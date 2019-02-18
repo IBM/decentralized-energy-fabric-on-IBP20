@@ -363,7 +363,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
     - The username you would like to register.
     - Update gateway discovery to `{ enabled: true, asLocalhost: false }` to connect to IBP.
 
-> the current default setup is to connect to a local fabric instance from VS Code
+
 
 ```bash
  {
@@ -377,7 +377,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
     "userName": "user1",
     "gatewayDiscovery": { "enabled": true, "asLocalhost": false }
  }
-    ```
+```
 
 
 
