@@ -1,0 +1,9 @@
+{
+    "connection_file": "mychannel_decentralizedenergy_profile.json",
+    "appAdmin": "app-admin",
+    "appAdminSecret": "app-adminpw",
+    "orgMSPID": "org1msp",
+    "caName": "173.193.79.114:32615",
+    "userName": "user1",
+    "gatewayDiscovery": { "enabled": true, "asLocalhost": false }
+}

@@ -5,3 +5,5 @@
 node_modules/
 npm-debug.log
 .npm
+
+./server/mychannel_decentralizedenergy_profile.json
