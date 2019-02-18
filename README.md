@@ -1,6 +1,7 @@
 # Decentralized Energy with Blockchain
 
 
+
 >Hyperledger Fabric sample Fabcar on IBM Blockchain Platform 2.0
 
 This code pattern demonstrates setting up a network on the IBM Blockchain Platform 2.0 and deploying the Decentralized smart contract on the network.  Next, we generate client side certificates so the developer can subsequently enroll an application identity and then submit transactions on the smart contract.   The application is setup with a Node.js server using the Fabric Node SDK to process requests to the network.
@@ -412,6 +413,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
     ...
 
     ```
+
 
 ## Extending the code pattern
 This application can be expanded in a couple of ways:
