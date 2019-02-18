@@ -1,7 +1,6 @@
 # Decentralized Energy with Blockchain
 
 
-
 >Hyperledger Fabric sample Fabcar on IBM Blockchain Platform 2.0
 
 This code pattern demonstrates setting up a network on the IBM Blockchain Platform 2.0 and deploying the Decentralized smart contract on the network.  Next, we generate client side certificates so the developer can subsequently enroll an application identity and then submit transactions on the smart contract.   The application is setup with a Node.js server using the Fabric Node SDK to process requests to the network.
@@ -10,12 +9,11 @@ A key application of Blockchain being currently explored is a Decentralized Ener
 
 The network consists of Residents, Banks and Utility Companies. Residents can exchange coins for energy among each other.  The application assumes a pre-paid system where transactions occur after the energy is consumed and the values are updated.  The Resident can exchange coins for Fiat money (USD) with Banks on the network.  The Residents can also transact coins for energy with a Utility company on the network.
 
-The code pattern demonstrates how a Node.js smart contract can be packaged using the IBM Blockchain Platform Extension for VS Code. Then, using the extension, you can set up a local instance of the Hyperledger Fabric network, on which you can install and instantiate the contract. 
+The code pattern demonstrates how a Node.js smart contract can be packaged using the IBM Blockchain Platform Extension for VS Code. Then, using the extension, you can set up a local instance of the Hyperledger Fabric network, on which you can install and instantiate the contract. Lastly, the application is setup with a Node.js server using the Fabric Node SDK to process transactions that communicate with the network.
 
 When you have completed this code pattern, you will understand how to:
 
-* Develop a Node.js smart contract
-* Package and deploy the smart contract to a local instance of Hyperledger Fabric using IBM Blockchain Platform Extension for VS Code
+* Package the smart contract using IBM Blockchain Platform Extension for VS Code
 * Setup a Hyperledger Fabric network on IBM Blockchain Platform 2.0
 * Install and instantiate smart contract package onto the IBM Blockchain Platform 2.0
 * Develop a Node.js server with the Hyperledger Fabric SDK to interact with the deployed network
@@ -32,7 +30,8 @@ When you have completed this code pattern, you will understand how to:
 2. Launch the IBM Blockchain Platform 2.0 and Kubernetes Services on the IBM Cloud.
 3. Install chaincode on the peer node.
 4. Instantiate the chaincode on the peer node.
-5. Execute the decentralized energy smart contract transactions from client applications.
+5. Execute the decentralized energy smart contract transactions from a node.js application.
+
 
 # Included components
 *   [IBM Blockchain Platform 2.0](https://console.bluemix.net/docs/services/blockchain/howto/ibp-v2-deploy-iks.html#ibp-v2-deploy-iks) gives you total control of your blockchain network with a user interface that can simplify and accelerate your journey to deploy and manage blockchain components on the IBM Cloud Kubernetes Service.
@@ -93,9 +92,10 @@ We will use the IBM Blockchain Platform extension to package the smart contract.
   <img height="500" src="docs/doc-images/ibm-blockchain-extension.png">
 </p>
 
-* Next, right click on the packaged contract to export it and choose `Export Package`.
+* Next, right click on the packaged contract (in this case, select decentralized-energy@0.0.1) to export it and choose `Export Package`.
 
-* Choose a location on your machine and save `.cds` file.  We will use this packages smart contract later to deploy on our work.
+* Choose a location on your machine and save `.cds` file.  We will use this packages smart contract later to deploy on the IBM Blockchain Platform 2.0 service.
+
 
 Now, we will start creating our Hyperledger Fabric network on the IBM Cloud.
 
