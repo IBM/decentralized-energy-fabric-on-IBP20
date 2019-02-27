@@ -8,21 +8,22 @@
    try {
 
 
-// capture network variables from config.json
-const configPath = path.join(process.cwd(), 'config.json');
-const configJSON = fs.readFileSync(configPath, 'utf8');
-const config = JSON.parse(configJSON);
-var connection_file = config.connection_file;
-var appAdmin = config.appAdmin;
-var channelName = config.channel_name;
-var smartContractName = config.smart_contract_name;
-var appAdminSecret = config.appAdminSecret;
-var orgMSPID = config.orgMSPID;
-var caName = config.caName;
+    // capture network variables from config.json
+    const configPath = path.join(process.cwd(), 'config.json');
+    const configJSON = fs.readFileSync(configPath, 'utf8');
+    const config = JSON.parse(configJSON);
+    var connection_file = config.connection_file;
+    var appAdmin = config.appAdmin;
+    var channelName = config.channel_name;
+    var smartContractName = config.smart_contract_name;
+    var gatewayDiscovery = config.gatewayDiscovery;
+    var appAdminSecret = config.appAdminSecret;
+    var orgMSPID = config.orgMSPID;
+    var caName = config.caName;
 
-const ccpPath = path.join(process.cwd(), connection_file);
-const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
-const ccp = JSON.parse(ccpJSON);
+    const ccpPath = path.join(process.cwd(), connection_file);
+    const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
+    const ccp = JSON.parse(ccpJSON);
 
      // Parse the connection profile. This would be the path to the file downloaded
      // from the IBM Blockchain Platform operational console.
@@ -38,7 +39,7 @@ const ccp = JSON.parse(ccpJSON);
      // Create a new gateway, and connect to the gateway peer node(s). The identity
      // specified must already exist in the specified wallet.
      const gateway = new Gateway();
-     await gateway.connect(ccp, { wallet, identity: appAdmin , discovery: {enabled: true, asLocalhost:false }});
+     await gateway.connect(ccp, { wallet, identity: appAdmin , discovery: gatewayDiscovery });
 
      // Get the network channel that the smart contract is deployed to.
      const network = await gateway.getNetwork(channelName);

@@ -8,7 +8,14 @@ const { FileSystemWallet, Gateway } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
 
-const ccpPath = path.resolve(__dirname, '..', 'connection.json');
+// capture network variables from config.json
+const configPath = path.join(process.cwd(), '..', '/config.json');
+const configJSON = fs.readFileSync(configPath, 'utf8');
+const config = JSON.parse(configJSON);
+var connection_file = config.connection_file;
+var gatewayDiscovery = config.gatewayDiscovery;
+
+const ccpPath = path.resolve(__dirname, '..', connection_file);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
@@ -33,7 +40,7 @@ async function addResident() {
 
         // Create a new gateway for connecting to our peer node.
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: participantId, discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: participantId, discovery: gatewayDiscovery });
 
         // Get the network (channel) our contract is deployed to.
         const network = await gateway.getNetwork('mychannel');
@@ -53,27 +60,20 @@ async function addResident() {
         var cashBalance = "100";
         var cashCurrency = "USD";
 
-        const addResidentResponse = await contract.submitTransaction('AddResident', residentId, firstName, lastName, coinsBalance, energyValue, energyUnits, cashBalance, cashCurrency);
-        // console.log('addResidentResponse: ');
-        // console.log(addResidentResponse.toString('utf8'));
+        const addResidentResponse = await contract.submitTransaction('AddResident', residentId, firstName, lastName, coinsBalance, energyValue, energyUnits, cashBalance, cashCurrency);        
         console.log('addResidentResponse_JSON.parse: ');
         console.log(JSON.parse(JSON.parse(addResidentResponse.toString())));
 
         console.log('\nGet residentId state: ' + residentId);
-        const residentIdResponse = await contract.submitTransaction('GetState', residentId);
-        // console.log('residentIdResponse: ')
-        // console.log(residentIdResponse.toString('utf8'));
+        const residentIdResponse = await contract.evaluateTransaction('GetState', residentId);        
         console.log('residentIdResponse_JSON.parse_response: ')
         console.log(JSON.parse(JSON.parse(residentIdResponse.toString())));
 
 
         console.log('\nGet residents');
-        const responseResidents = await contract.submitTransaction('GetState', "residents");
-        // console.log('responseResidents: ')
-        // console.log(responseResidents.toString('utf8'));
+        const responseResidents = await contract.evaluateTransaction('GetState', "residents");
         console.log('responseResidents_JSON.parse_response: ')
         console.log(JSON.parse(JSON.parse(responseResidents.toString())));
-
 
         // Disconnect from the gateway.
         await gateway.disconnect();

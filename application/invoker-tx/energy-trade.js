@@ -8,7 +8,14 @@ const { FileSystemWallet, Gateway } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
 
-const ccpPath = path.resolve(__dirname, '..', 'connection.json');
+// capture network variables from config.json
+const configPath = path.join(process.cwd(), '..', '/config.json');
+const configJSON = fs.readFileSync(configPath, 'utf8');
+const config = JSON.parse(configJSON);
+var connection_file = config.connection_file;
+var gatewayDiscovery = config.gatewayDiscovery;
+
+const ccpPath = path.resolve(__dirname, '..', connection_file);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
@@ -35,7 +42,7 @@ async function tradeEnergy() {
 
         // Create a new gateway for connecting to our peer node.
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: participantId, discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: participantId, discovery: gatewayDiscovery });
 
         // Get the network (channel) our contract is deployed to.
         const network = await gateway.getNetwork('mychannel');
@@ -51,8 +58,8 @@ async function tradeEnergy() {
         const energyTradeResponse = await contract.submitTransaction('EnergyTrade', energyRate, energyValue, energyReceiverId, energySenderId);
         // console.log('energyTradeResponse: ')
         // console.log(energyTradeResponse.toString('utf8'));
-        console.log('energyTradeResponse_JSON.parse_response: ')
-        console.log(JSON.parse(JSON.parse(energyTradeResponse_JSON.toString())));
+        console.log('response: ')
+        console.log(JSON.parse(JSON.parse(energyTradeResponse.toString())));
 
         // Disconnect from the gateway.
         await gateway.disconnect();
