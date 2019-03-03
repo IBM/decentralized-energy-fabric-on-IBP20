@@ -416,7 +416,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 ### Run the application as participants
 
-- Navigate to the `application` directory, and install the node dependencies.
+- Navigate to the `application` directory if you are not already there, and install the node dependencies.
   ```bash
   cd application
   npm install
@@ -435,7 +435,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 - Now lets register each of our participants. We will register `R1` as resident, `B1` as bank, `U1` as utility company.  Navigate to `add-participants` folder and register the resident identity:  
   ```bash
-  cd application
+  cd add-participants
   node registerResident.js
   ```
 
