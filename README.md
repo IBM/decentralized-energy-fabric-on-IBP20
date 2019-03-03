@@ -1,6 +1,10 @@
 # Decentralized Energy with IBM Blockchain Platform 2.0
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
 >Hyperledger Fabric sample Decentralized Energy on IBM Blockchain Platform 2.0
 
 This code pattern demonstrates setting up a network on the IBM Blockchain Platform 2.0 and deploying the Decentralized smart contract on the network.  Next, we generate client side certificates so the developer can subsequently enroll an application identity and then submit transactions on the smart contract.   The application is setup with a Node.js server using the Fabric Node SDK to process requests to the network.
@@ -89,7 +93,7 @@ We will use the IBM Blockchain Platform extension to package the smart contract.
 * Click the `IBM Blockchain Platform` extension button on the left. This will show the packaged contracts on top and the blockchain connections on the bottom.
 
 <p align="center">
-  <img height="500" src="docs/doc-images/ibm-blockchain-extension.png">
+  <img width="300" src="docs/doc-images/ibm-blockchain-extension.png">
 </p>
 
 * Next, right click on the packaged contract (in this case, select decentralized-energy@0.0.1) to export it and choose `Export Package`.
@@ -354,7 +358,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 
 * #### Update application connection
-  - Copy the connection profile you downloaded into [server folder](web-app/server)
+  - Copy the connection profile you downloaded into [server folder](web-app/server) and [application folder](/application)
   - Update the [config.json](web-app/server/config.json) file with:
     - The connection json file name you downloaded.
     - The <b>enroll id</b> and <b>enroll secret</b> for your app admin, which we earlier provided as `app-admin` and `app-adminpw`.
@@ -367,7 +371,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 ```bash
  {
-    "connection_file": "mychannel_fabcar_profile.json",
+    "connection_file": "mychannel_decentralizedenergy_profile.json",
     "channel_name": "mychannel",
     "smart_contract_name": "decentralizedenergy",
     "appAdmin": "app-admin",
@@ -383,7 +387,8 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 ## 7. Run the application
 
-* #### Enroll admin
+### Run the application as admin
+
   - First, navigate to the `web-app` directory, and install the node dependencies.
     ```bash
     cd web-app/server
@@ -408,12 +413,127 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
   - You should see the following in the terminal:
     ```bash
-    msg:  Submit AddResident transaction. info: [TransactionEventHandler]: _strategySuccess: strategy success for transaction "4ae2d2e3cad8cb52bc8f59518905919d693b4cc036405be0f25108ba623d67f5" 
-    
+    msg:  Submit AddResident transaction. info: [TransactionEventHandler]: _strategySuccess: strategy success for transaction "4ae2d2e3cad8cb52bc8f59518905919d693b4cc036405be0f25108ba623d67f5"
+
     ...
 
     ```
 
+### Run the application as participants
+
+- Navigate to the `application` directory, and install the node dependencies.
+  ```bash
+  cd application
+  npm install
+  ```
+
+- Run the `enrollAdmin.js` script
+  ```bash
+  node enrollAdmin.js
+  ```
+
+  You should see the following in the terminal:
+  ```bash
+  msg: Successfully enrolled admin user app-admin and imported it into the wallet
+  ```
+
+
+- Now lets register each of our participants. We will register `R1` as resident, `B1` as bank, `U1` as utility company.  Navigate to `add-participants` folder and register the resident identity:  
+  ```bash
+  cd application
+  node registerResident.js
+  ```
+
+  You should see the following in the terminal:
+  ```bash
+  Successfully registered and enrolled user "R1" and imported it into the wallet
+  ```
+
+  Similarly register bank and utility company on the network.
+  ```bash
+  node registerBank.js
+  ```
+
+  ```bash
+  node registerUtilityCompany.js
+  ```
+
+- Now add the participants on the state.  The contract stores the id of the identity creating the participant as their `participantId`.  Lets add our resident:
+  ```bash
+  node addResident.js
+  ```
+
+  You should see the following in the terminal:
+  ```bash
+  2019-02-27T06:38:29.252Z - info: [TransactionEventHandler]: _strategySuccess: strategy success for transaction "c092df4098775057a7b712db402e45f3c8420d98fc022dfc331accb580448d4a"
+
+  ...
+
+  ```
+
+  Similarly add bank and utility company on the network.
+  ```bash
+  node addBank.js
+  ```
+
+  ```bash
+  node addUtilityCompany.js
+  ```
+
+- Now lets perform the `EnergyTrade` and `CashTrade` transactions.  These transactions will verify the sender's id, as the id on the world state before updating the state.  In our case that is our resident R1:
+  ```bash
+  cd ../invoker-tx/
+  node energy-trade.js
+  ```
+
+  You should see the following in the terminal followed by updated state of the resident and utility company:
+  ```bash
+  2019-02-27T06:38:29.252Z - info: [TransactionEventHandler]: _strategySuccess: strategy success for transaction "c092df4098775057a7b712db402e45f3c8420d98fc022dfc331accb580448d4a"
+
+  ...
+
+  ```
+  Similarly, lets do the `CashTrade` transaction between resident and bank.
+
+  ```bash
+  node cash-trade.js
+  ```
+
+  You should see the following in the terminal followed by updated state of the resident and the bank:
+  ```bash
+  2019-02-27T06:38:29.252Z - info: [TransactionEventHandler]: _strategySuccess: strategy success for transaction "c092df4098775057a7b712db402e45f3c8420d98fc022dfc331accb580448d4a"
+
+  ...
+
+  ```
+
+<br>
+<p align="center">
+  <img src="docs/doc-gifs/channel-block.gif">
+</p>
+<br>
+
+## Troubleshooting
+
+* If you receive the following error on submitting transaction:
+`error: [Client.js]: Channel not found for name mychannel`
+
+  It is safe to ignore this error because the ibp2.0 beta has service discovery enabled. (In order to use service discovery to find other peers please define anchor peers for your channel in the ui). If you really want the message to go away you can add the channels section to the connection profile, but it is a warning rather than a true error telling the user the channel is found but not in the connection profile
+
+  As an example you can manually add the following json and updated the IP address and ports manually:
+
+  ```
+  "channels": {
+          "mychannel": {
+              "orderers": [
+                  "169.46.208.151:32078"
+              ],
+              "peers": {
+                  "169.46.208.151:31017": {}
+              }
+          }
+      },
+  ```
 
 ## Troubleshooting
 
@@ -439,13 +559,12 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 ## Extending the code pattern
 This application can be expanded in a couple of ways:
-* Create a wallet for every member and use the member's wallet to interact with the application.
 * Add a UI application in place of the `invoke.js` node application to execute the transactions.
 
 
 ## Links
 * [Hyperledger Fabric Docs](http://hyperledger-fabric.readthedocs.io/en/latest/)
-* [Zero to Blockchain](https://www.redbooks.ibm.com/Redbooks.nsf/RedbookAbstracts/crse0401.html?Open)
+* [Decentralized Energy with Composer](https://developer.ibm.com/code/journey/decentralized-energy-hyperledger-composer/)
 * [IBM Code Patterns for Blockchain](https://developer.ibm.com/patterns/category/blockchain/)
 
 ## License

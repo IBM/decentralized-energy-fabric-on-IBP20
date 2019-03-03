@@ -7,3 +7,4 @@ npm-debug.log
 .npm
 
 ./server/mychannel_decentralizedenergy_profile.json
+./application/mychannel_decentralizedenergy_profile.json
