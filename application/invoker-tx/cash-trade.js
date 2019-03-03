@@ -8,13 +8,20 @@ const { FileSystemWallet, Gateway } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
 
-const ccpPath = path.resolve(__dirname, '..', 'connection.json');
+// capture network variables from config.json
+const configPath = path.join(process.cwd(), '..', '/config.json');
+const configJSON = fs.readFileSync(configPath, 'utf8');
+const config = JSON.parse(configJSON);
+var connection_file = config.connection_file;
+var gatewayDiscovery = config.gatewayDiscovery;
+
+const ccpPath = path.resolve(__dirname, '..', connection_file);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
 // ID from wallet for the participant
 const participantId = 'R1';
-const utilityCompanyId = 'U1';
+const bankId = 'B1';
 const residentId = 'R1';
 
 async function tradeCash() {
@@ -35,7 +42,7 @@ async function tradeCash() {
 
         // Create a new gateway for connecting to our peer node.
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: participantId, discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: participantId, discovery: gatewayDiscovery });
 
         // Get the network (channel) our contract is deployed to.
         const network = await gateway.getNetwork('mychannel');
@@ -45,14 +52,14 @@ async function tradeCash() {
         console.log('\nSubmit CashTrade transaction.');
         var cashRate = "1";
         var cashValue = "10";
-        var cashReceiverId = utilityCompanyId;
+        var cashReceiverId = bankId;
         var cashSenderId = residentId;
 
         const cashTradeResponse = await contract.submitTransaction('CashTrade', cashRate, cashValue, cashReceiverId, cashSenderId);
         // console.log('cashTradeResponse: ')
         // console.log(cashTradeResponse.toString('utf8'));
         console.log('cashTradeResponse_JSON.parse_response: ')
-        console.log(JSON.parse(JSON.parse(cashTradeResponse_JSON.toString())));
+        console.log(JSON.parse(JSON.parse(cashTradeResponse.toString())));
 
         // Disconnect from the gateway.
         await gateway.disconnect();

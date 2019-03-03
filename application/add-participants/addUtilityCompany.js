@@ -8,7 +8,14 @@ const { FileSystemWallet, Gateway } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
 
-const ccpPath = path.resolve(__dirname, '..', 'connection.json');
+// capture network variables from config.json
+const configPath = path.join(process.cwd(), '..', '/config.json');
+const configJSON = fs.readFileSync(configPath, 'utf8');
+const config = JSON.parse(configJSON);
+var connection_file = config.connection_file;
+var gatewayDiscovery = config.gatewayDiscovery;
+
+const ccpPath = path.resolve(__dirname, '..', connection_file);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
@@ -33,7 +40,7 @@ async function addUtilityCompany() {
 
         // Create a new gateway for connecting to our peer node.
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: participantId, discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: participantId, discovery: gatewayDiscovery });
 
         // Get the network (channel) our contract is deployed to.
         const network = await gateway.getNetwork('mychannel');
@@ -51,23 +58,17 @@ async function addUtilityCompany() {
         var energyUnits = "kwh";
 
         const addUtilityCompanyResponse = await contract.submitTransaction('AddUtilityCompany', utilityCompanyId, name, coinsBalance, energyValue, energyUnits);
-        // console.log('addUtilityCompanyResponse: ');
-        // console.log(addUtilityCompanyResponse.toString('utf8'));
         console.log('addUtilityCompanyResponse_JSON.parse: ');
         console.log(JSON.parse(JSON.parse(addUtilityCompanyResponse.toString())));
 
         console.log('\nGet utilityCompanyId state: ' + utilityCompanyId);
-        const utilityCompanyIdResponse = await contract.submitTransaction('GetState', utilityCompanyId);
-        // console.log('utilityCompanyIdResponse: ')
-        // console.log(utilityCompanyIdResponse.toString('utf8'));
+        const utilityCompanyIdResponse = await contract.evaluateTransaction('GetState', utilityCompanyId);
         console.log('utilityCompanyIdResponse_JSON.parse_response: ')
         console.log(JSON.parse(JSON.parse(utilityCompanyIdResponse.toString())));
 
 
         console.log('\nGet utility companies');
-        const responseResidents = await contract.submitTransaction('GetState', "utilityCompanies");
-        // console.log('responseResidents: ')
-        // console.log(responseResidents.toString('utf8'));
+        const responseResidents = await contract.evaluateTransaction('GetState', "utilityCompanies");        
         console.log('responseResidents_JSON.parse_response: ')
         console.log(JSON.parse(JSON.parse(responseResidents.toString())));
 

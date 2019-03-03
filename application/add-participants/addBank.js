@@ -8,7 +8,14 @@ const { FileSystemWallet, Gateway } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
 
-const ccpPath = path.resolve(__dirname, '..', 'connection.json');
+// capture network variables from config.json
+const configPath = path.join(process.cwd(), '..', '/config.json');
+const configJSON = fs.readFileSync(configPath, 'utf8');
+const config = JSON.parse(configJSON);
+var connection_file = config.connection_file;
+var gatewayDiscovery = config.gatewayDiscovery;
+
+const ccpPath = path.resolve(__dirname, '..', connection_file);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
@@ -33,7 +40,7 @@ async function addBank() {
 
         // Create a new gateway for connecting to our peer node.
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: participantId, discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: participantId, discovery: gatewayDiscovery });
 
         // Get the network (channel) our contract is deployed to.
         const network = await gateway.getNetwork('mychannel');
@@ -57,17 +64,13 @@ async function addBank() {
         console.log(JSON.parse(JSON.parse(addBankResponse.toString())));
 
         console.log('\nGet bankId state: ' + bankId);
-        const bankIdResponse = await contract.submitTransaction('GetState', bankId);
-        // console.log('bankIdResponse: ')
-        // console.log(bankIdResponse.toString('utf8'));
+        const bankIdResponse = await contract.evaluateTransaction('GetState', bankId);
         console.log('bankIdResponse_JSON.parse_response: ')
         console.log(JSON.parse(JSON.parse(bankIdResponse.toString())));
 
 
         console.log('\nGet banks');
-        const responseBanks = await contract.submitTransaction('GetState', "banks");
-        // console.log('responseResidents: ')
-        // console.log(responseResidents.toString('utf8'));
+        const responseBanks = await contract.evaluateTransaction('GetState', "banks");
         console.log('responseBanks_JSON.parse_response: ')
         console.log(JSON.parse(JSON.parse(responseBanks.toString())));
 
