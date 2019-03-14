@@ -384,6 +384,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
 ### Run the application as admin
 
+* #### Enroll admin
   - First, navigate to the `web-app` directory, and install the node dependencies.
     ```bash
     cd web-app/server
@@ -400,23 +401,39 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
     msg: Successfully enrolled admin user app-admin and imported it into the wallet
     ```
 
+* #### Start the application server
+  - From the `server` directory, start the server.
 
-  - Run the `invoke.js` script to execute the transactions on the smart contract
     ```bash
-    node invoke.js
+    npm start
     ```
 
-  - You should see the following in the terminal:
+* #### Start the Angular app
+  - In a new terminal, open the web client folder and install the dependencies.
     ```bash
-    msg:  Submit AddResident transaction. info: [TransactionEventHandler]: _strategySuccess: strategy success for transaction "4ae2d2e3cad8cb52bc8f59518905919d693b4cc036405be0f25108ba623d67f5"
-
-    ...
-
+    cd web-app/angular-app
+    npm install
     ```
+
+  - Start the client:
+    ```bash
+    npm run serve
+    ```
+
+You can find the app running at http://localhost:8080/
+
+<br>
+<p align="center">
+  <img src="docs/doc-gifs/application.gif">
+</p>
+<br>
+
+You can go to the IBM Blockchain Platform v2 console to monitor your network and get information on your channel.
+
 
 ### Run the application as participants
 
-- Navigate to the `application` directory if you are not already there, and install the node dependencies.
+- Navigate to the `application` directory, and install the node dependencies.
   ```bash
   cd application
   npm install
@@ -535,10 +552,10 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 * If you receive the following error on submitting transaction:
 `error: [Client.js]: Channel not found for name mychannel`
 
-  It is safe to ignore this error because the ibp2.0 beta has service discovery enabled. (In order to use service discovery to find other peers please define anchor peers for your channel in the ui). If you really want the message to go away you can add the channels section to the connection profile, but it is a warning rather than a true error telling the user the channel is found but not in the connection profile 
+  It is safe to ignore this error because the ibp2.0 beta has service discovery enabled. (In order to use service discovery to find other peers please define anchor peers for your channel in the ui). If you really want the message to go away you can add the channels section to the connection profile, but it is a warning rather than a true error telling the user the channel is found but not in the connection profile
 
   As an example you can manually add the following json and updated the IP address and ports manually:
-  
+
   ```
   "channels": {
           "mychannel": {
@@ -551,10 +568,6 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
           }
       },
   ```
-
-## Extending the code pattern
-This application can be expanded in a couple of ways:
-* Add a UI application in place of the `invoke.js` node application to execute the transactions.
 
 
 ## Links

@@ -19,29 +19,5 @@
     "dependencies": {
         "fabric-contract-api": "1.4.0-beta2",
         "fabric-shim": "1.4.0-beta2"
-    },
-    "devDependencies": {
-        "chai": "^4.2.0",
-        "eslint": "^5.9.0",
-        "mocha": "^5.2.0",
-        "nyc": "^13.1.0",
-        "sinon": "^7.1.1",
-        "sinon-chai": "^3.3.0"
-    },
-    "nyc": {
-        "exclude": [
-            "coverage/**",
-            "test/**"
-        ],
-        "reporter": [
-            "text-summary",
-            "html"
-        ],
-        "all": true,
-        "check-coverage": true,
-        "statements": 100,
-        "branches": 100,
-        "functions": 100,
-        "lines": 100
     }
 }

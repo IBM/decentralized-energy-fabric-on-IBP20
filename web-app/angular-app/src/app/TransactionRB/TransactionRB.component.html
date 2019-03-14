@@ -1,0 +1,79 @@
+
+
+<div class="container">
+
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+		<strong>Error:</strong> {{errorMessage}}
+	</div>
+
+  <div class="row">
+      <h1>Resident to Bank </h1>  
+  </div>
+
+  <div class="row">
+    <br>
+  </div>
+
+  <div class="row RR">
+    <div *ngIf="transactionFrom" class="col-md-offset-3 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading"> <strong>Enter Transaction Info </strong>
+        </div>
+        <div class="panel-body">
+          <form [formGroup]="myForm">
+
+            <p><strong>Rate: {{bankCoinsPerCash}}  Coins / USD </strong></p>
+
+            <p>Action:         
+              <select name="actions" formControlName="action">
+                <option value="getCash">Get Cash (USD) for Coins</option>
+                <option value="getCoins">Get Coins for Cash (USD)</option>
+              </select>
+            </p>
+            
+            <p>Resident: 
+              <select name="residents" formControlName="formResidentID">
+                <option *ngFor="let resident of allResidents" value="{{resident.residentId}}">{{resident.residentId}}</option>
+              </select>
+            </p>           
+
+            <p>Bank: 
+              <select name="banks" formControlName="formBankID" >
+                <option *ngFor="let bank of allBanks" value="{{bank.bankId}}">{{bank.bankId}}</option>
+              </select>
+            </p>
+
+            <p>Cash value (USD):
+              <input formControlName="value" type="number" step='any' class="form-control inlineInput">
+            </p>
+  
+            </form>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!transactionFrom" class="col-md-offset-3 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading" align="center"><strong>Transaction Executed</strong></div>
+        <div class="panel-body">
+        <p align="center">{{response}}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">  
+    <div *ngIf="transactionFrom" class="col-md-offset-4 col-md-4">
+    <button (click)="execute(form);" type="button" class="btn btn-success" data-toggle="modal" >Execute Transaction</button>
+	  
+    </div>
+  </div>
+
+  <div class="row">
+    <br>
+    <br>
+  </div>
+
+
+</div>
