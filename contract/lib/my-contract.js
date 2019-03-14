@@ -164,6 +164,9 @@ class MyContract extends Contract {
         if (sender.energy.value < energyValue) {
             throw new Error('Sender does not have enough energy in the account');
         }
+        if (receiver.coins.value < coinsValue) {
+            throw new Error('Receiver does not have enough coins in the account');
+        }
         sender.energy.value = sender.energy.value - Number(energyValue);
         sender.coins.value = coinsValue + sender.coins.value;
         await ctx.stub.putState(energySenderId, Buffer.from(JSON.stringify(sender)));
@@ -206,13 +209,16 @@ class MyContract extends Contract {
         if (sender.cash.value < cashValue) {
             throw new Error('Sender does not have enough cash in the account');
         }
+        if (receiver.coins.value < coinsValue) {
+            throw new Error('Receiver does not have enough coins in the account');
+        }
         sender.cash.value = sender.cash.value - Number(cashValue);
         sender.coins.value = sender.coins.value + coinsValue;
         await ctx.stub.putState(cashSenderId, Buffer.from(JSON.stringify(sender)));
 
         //update energyReceiverId account
         const receiverData = await ctx.stub.getState(cashReceiverId);
-        var receiver = JSON.parse(receiverData.toString());
+        var receiver = JSON.parse(receiverData.toString());                
         receiver.cash.value = receiver.cash.value + Number(cashValue);
         receiver.coins.value = receiver.coins.value - coinsValue;
         await ctx.stub.putState(cashReceiverId, Buffer.from(JSON.stringify(receiver)));
