@@ -1,0 +1,89 @@
+
+
+<div class="container align">
+
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+		<strong>Error:</strong> {{errorMessage}}
+	</div>
+
+  <div class="row">
+      <h2> Blockchain </h2>
+  </div>
+
+  <div class="row">
+    <br>
+  </div>
+
+  <div *ngIf="showBlockchain.length > 0" class="row" >
+      <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>
+                Block Number
+              </th>
+              <th>
+                Data Hash
+              </th>
+              <th>
+                Transactions
+              </th>
+              <th>
+                TimeStamp
+              </th>
+              <th>
+                Tx_ID 
+              </th>
+              <th>
+                Keys
+              </th>
+              <th>
+                Value
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+              <tr *ngFor="let block of showBlockchain">
+                <td>
+                  {{block.number}}
+                </td>
+                <td>
+                  {{block.data_hash}}
+                </td>
+                <td>
+                  {{block.num_transactions}}
+                </td>
+                <td>                    
+                    <div *ngFor="let timestamp of block.timestamps.split(';')">
+                        {{timestamp}} <br/><br/>
+                    </div> 
+                </td>
+                <td>
+                    <div *ngFor="let id of block.ids.split(';')">
+                        {{id}} <br/><br/>
+                    </div>
+                </td>
+                <td>
+                    <div *ngFor="let id of block.keys.split(';')">
+                        {{id}} <br/><br/>
+                    </div>
+                </td>
+                <td>
+                    <div *ngFor="let id of block.values.split(';')">
+                        {{id}} <br/><br/>
+                    </div>
+                </td>      
+              </tr>
+          </tbody>
+        </table>
+
+  </div>
+
+
+  <div class="row">
+    <br>
+    <br>
+  </div>
+
+
+</div>

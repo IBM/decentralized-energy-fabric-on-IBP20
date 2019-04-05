@@ -1,0 +1,73 @@
+
+
+<div class="container">
+
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+		<strong>Error:</strong> {{errorMessage}}
+	</div>
+
+  <div class="row">
+      <h2> Resident to Resident Transaction </h2>
+  </div>
+
+  <div class="row">
+    <br>
+  </div>
+
+  <div class="row RR">
+    <div *ngIf="transactionFrom" class="col-md-offset-3 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong>Enter Transaction Info</strong></div>
+        <div class="panel-body">
+        <p>Billing Period: 2:00 pm - 4:00 pm</p>
+          <form [formGroup]="myForm">
+            
+            <p>Producer:           
+              <select name="residents" formControlName="producerResidentID" >
+                <option *ngFor="let resident of allResidents" value="{{resident.residentId}}">{{resident.residentId}}</option>
+              </select>
+              </p> 
+              
+
+              <p>Consumer: 
+              <select name="residents" formControlName="consumerResidentID" >
+                <option *ngFor="let resident of allResidents" value="{{resident.residentId}}">{{resident.residentId}}</option>
+              </select>
+              </p>
+              
+
+            <p>Energy exchanged (kwh): <input formControlName="energyValue" type="number" step='any' class="form-control inlineInput">
+              </p>
+            
+            <p>Rate: <strong>{{residentCoinsPerEnergy}} Coins / kwh </strong>
+            </p>
+            <br>
+            </form>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!transactionFrom" class="col-md-offset-3 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading" align="center"><strong>Transaction Executed</strong></div>
+        <div class="panel-body">
+        <p align="center">{{response}}</p>         
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">  
+    <div *ngIf="transactionFrom" class="col-md-offset-4 col-md-4">
+      <button (click)="execute(form);" type="button" class="btn btn-success" data-toggle="modal" >Execute Transaction</button>	  
+    </div>
+  </div>
+
+  <div class="row">
+    <br>
+    <br>
+  </div>
+
+
+</div>

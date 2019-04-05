@@ -50,8 +50,7 @@ class MyContract extends Contract {
             "cash": cash,
             "energy": energy,
             "type": "resident"
-        }
-        await ctx.stub.putState(residentId, Buffer.from(JSON.stringify(resident)));
+        }        
 
         //add residentId to 'resident' key
         const data = await ctx.stub.getState('residents');
@@ -61,8 +60,11 @@ class MyContract extends Contract {
         if (residents.indexOf(residentId) == -1) {
             residents.push(residentId);
             await ctx.stub.putState('residents', Buffer.from(JSON.stringify(residents)));
+        } else {
+            throw new Error('Resident with this id exists');
         }
 
+        await ctx.stub.putState(residentId, Buffer.from(JSON.stringify(resident)));
         return JSON.stringify(resident);
     }
 
@@ -85,10 +87,9 @@ class MyContract extends Contract {
             "coins": coins,
             "cash": cash,
             "type": "bank"
-        }
-        await ctx.stub.putState(bankId, Buffer.from(JSON.stringify(bank)));
+        }        
 
-        //add bankId to 'bank' key
+        //add bankId to 'banks' key
         const data = await ctx.stub.getState('banks');
         var banks = JSON.parse(data.toString());
 
@@ -96,7 +97,12 @@ class MyContract extends Contract {
         if (banks.indexOf(bankId) == -1) {
             banks.push(bankId);
             await ctx.stub.putState('banks', Buffer.from(JSON.stringify(banks)));
+        } else {
+            throw new Error('Bank with this id exists');
         }
+
+        // add bank object
+        await ctx.stub.putState(bankId, Buffer.from(JSON.stringify(bank)));
         return JSON.stringify(bank);
     }
 
@@ -118,9 +124,8 @@ class MyContract extends Contract {
             "name": name,
             "coins": coins,
             "energy": energy,
-            "type": "resident"
-        }
-        await ctx.stub.putState(utilityCompanyId, Buffer.from(JSON.stringify(utilityCompany)));
+            "type": "utilityCompany"
+        }        
 
         //add utilityCompanyId to 'utilityCompanies' key
         const data = await ctx.stub.getState('utilityCompanies');
@@ -130,7 +135,12 @@ class MyContract extends Contract {
         if (utilityCompanies.indexOf(utilityCompanyId) == -1) {
             utilityCompanies.push(utilityCompanyId);
             await ctx.stub.putState('utilityCompanies', Buffer.from(JSON.stringify(utilityCompanies)));
+        } else {
+            throw new Error('Utility Company with this id exists');
         }
+
+        // add utility company object
+        await ctx.stub.putState(utilityCompanyId, Buffer.from(JSON.stringify(utilityCompany)));
         return JSON.stringify(utilityCompany);
     }
 
@@ -151,6 +161,12 @@ class MyContract extends Contract {
         }
 
         // auth test pass: update energySenderId account
+        if (sender.energy.value < energyValue) {
+            throw new Error('Sender does not have enough energy in the account');
+        }
+        if (receiver.coins.value < coinsValue) {
+            throw new Error('Receiver does not have enough coins in the account');
+        }
         sender.energy.value = sender.energy.value - Number(energyValue);
         sender.coins.value = coinsValue + sender.coins.value;
         await ctx.stub.putState(energySenderId, Buffer.from(JSON.stringify(sender)));
@@ -190,13 +206,19 @@ class MyContract extends Contract {
         }
 
         // auth test pass: update cashSenderId account
+        if (sender.cash.value < cashValue) {
+            throw new Error('Sender does not have enough cash in the account');
+        }
+        if (receiver.coins.value < coinsValue) {
+            throw new Error('Receiver does not have enough coins in the account');
+        }
         sender.cash.value = sender.cash.value - Number(cashValue);
         sender.coins.value = sender.coins.value + coinsValue;
         await ctx.stub.putState(cashSenderId, Buffer.from(JSON.stringify(sender)));
 
         //update energyReceiverId account
         const receiverData = await ctx.stub.getState(cashReceiverId);
-        var receiver = JSON.parse(receiverData.toString());
+        var receiver = JSON.parse(receiverData.toString());                
         receiver.cash.value = receiver.cash.value + Number(cashValue);
         receiver.coins.value = receiver.coins.value - coinsValue;
         await ctx.stub.putState(cashReceiverId, Buffer.from(JSON.stringify(receiver)));
@@ -210,8 +232,7 @@ class MyContract extends Contract {
 
     // get the state from key
     async GetState(ctx, key) {
-        var cid = new ClientIdentity(ctx.stub);
-        console.info(`Received "GetState" query from ${cid.getID()}`);
+        
         const data = await ctx.stub.getState(key);
         var jsonData;
         if (!data) {

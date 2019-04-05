@@ -1,0 +1,98 @@
+
+<div class="modal fade" id="addUtilityCompanyModal" tabindex="-1" role="dialog" aria-labelledby="addUtilityCompanyModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addUtilityCompanyModalLabel">Add UtilityCompany</h4>
+      </div>
+      <form [formGroup]="myForm">
+        <div class="modal-body">            
+            <div class="form-group text-left">
+              <label for="name">Name</label>  
+                <input formControlName="name" type="text" class="form-control">          
+            </div>
+                      
+            <div class="form-group text-left">
+              <label for="coinsValue">Coins Balance</label>  
+                <input formControlName="coinsValue" type="text" class="form-control">          
+            </div>
+
+            <div class="form-group text-left">
+              <label for="energyValue">Energy Value</label>  
+                <input formControlName="energyValue" type="text" class="form-control">          
+            </div>
+
+            <div class="form-group text-left">
+              <label for="energyUnits">Energy Units</label> 
+              
+              <div>
+              <select name="energyUnits" formControlName="energyUnits">
+                <option value="kwh">kWh</option>                
+              </select>
+              </div>              
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <button (click)="addUtilityCompany(myForm);" type="submit" class="btn btn-success" data-dismiss="modal">Submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container">
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+		<strong>Error:</strong> {{errorMessage}}
+	</div>
+  <div class="row">
+      <h1 class="heading">Utility Companies </h1>  
+  </div><!-- /row -->
+
+ <div class="row">
+    <div class="col-md-12 text-right">
+      <button (click)="resetForm()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUtilityCompanyModal">Add UtilityCompany</button>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered table-responsive table-hover">
+        <thead class="thead">
+          <tr class="thead-cols">
+            
+                <th class="bc">ID</th>
+            
+                <th class="bc">Name</th>            
+
+                <th class="bc">Coins Balance</th>  
+
+                <th class="bc">Energy Value</th>
+
+                <th class="bc">Energy Units</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let utilityCompany of allUtilityCompanys">
+          
+                <td>{{utilityCompany.utilityCompanyId}}</td>
+            
+                <td>{{utilityCompany.name}}</td>
+
+                <td>{{utilityCompany.coins.value}}</td>
+
+                <td>{{utilityCompany.energy.value}}</td>
+
+                <td>{{utilityCompany.energy.units}}</td>
+                       
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
