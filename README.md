@@ -417,10 +417,10 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 
   - Start the client:
     ```bash
-    npm run serve
+    npm start
     ```
 
-You can find the app running at http://localhost:8080/
+You can find the app running at http://localhost:4200/
 
 <br>
 <p align="center">
@@ -525,27 +525,6 @@ You can go to the IBM Blockchain Platform v2 console to monitor your network and
 </p>
 <br>
 
-## Troubleshooting
-
-* If you receive the following error on submitting transaction:
-`error: [Client.js]: Channel not found for name mychannel`
-
-  It is safe to ignore this error because the ibp2.0 beta has service discovery enabled. (In order to use service discovery to find other peers please define anchor peers for your channel in the ui). If you really want the message to go away you can add the channels section to the connection profile, but it is a warning rather than a true error telling the user the channel is found but not in the connection profile
-
-  As an example you can manually add the following json and updated the IP address and ports manually:
-
-  ```
-  "channels": {
-          "mychannel": {
-              "orderers": [
-                  "169.46.208.151:32078"
-              ],
-              "peers": {
-                  "169.46.208.151:31017": {}
-              }
-          }
-      },
-  ```
 
 ## Troubleshooting
 
