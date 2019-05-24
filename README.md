@@ -69,7 +69,7 @@ Follow these steps to set up and run this code pattern. The steps are described 
 Clone this repository in a folder your choice:
 
 ```
-git clone https://github.com/IBM/decentralized-energy-fabric-IBP20.git
+git clone https://github.com/IBM/decentralized-energy-fabric-on-IBP20
 ```
 
 
