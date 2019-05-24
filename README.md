@@ -25,11 +25,12 @@ When you have completed this code pattern, you will understand how to:
   <img src="docs/doc-images/arch-flow.png">
 </p>
 
-1. The developer uses the IBM Blockchain Platform Extension for VS Code to package the Decentralized Energy smart contract.
-2. Launch the IBM Blockchain Platform 2.0 and Kubernetes Services on the IBM Cloud.
-3. Install chaincode on the peer node.
-4. Instantiate the chaincode on the peer node.
-5. Execute the decentralized energy smart contract transactions from a node.js application.
+1. The Blockchain Operator clones the GitHub repo with the Decentralized Energy smart contract.
+2. The Blockchain Operator uses the IBM Blockchain VSCode Extension to package the smart contract.
+3. The Blockchain Operator creates a IBM Blockchain Platform 2Install chaincode on the peer node.
+4. The IBM Blockchain Platform 2.0 creates a Hyperledger Fabric network onto a IBM Kubernetes Service, enabling us to install and instantiate the Decentralized Energy smart contract on the network.
+5. The Decentralized Energy web app uses the Hyperledger Fabric Node.js SDK to submit transactions to the Hyperledger Fabric network running on IBM Cloud.
+6. The Residents, Banks, and Utility Companies interact with the Decentralized Energy web-app and all transaction details are saved onto the IBM Blockchain Platform, unbeknown to the end-user. 
 
 
 # Included components
