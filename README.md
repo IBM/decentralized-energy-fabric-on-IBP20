@@ -60,7 +60,7 @@ Follow these steps to set up and run this code pattern. The steps are described 
 2. [Package the smart contract](#2-package-the-smart-contract)
 3. [Create IBM Cloud services](#3-create-ibm-cloud-services)
 4. [Build a network](#4-build-a-network)
-5. [Deploy Decentralized Energy Smart Contract on the network](#5-deploy-decentralizedenergy-smart-contract-on-the-network)
+5. [Deploy Decentralized Energy Smart Contract on the network](#5-deploy-decentralized-energy-smart-contract-on-the-network)
 6. [Connect application to the network](#6-connect-application-to-the-network)
 7. [Run the application](#7-run-the-application)
 
