@@ -552,7 +552,6 @@ You can go to the IBM Blockchain Platform v2 console to monitor your network and
 
 ## Links
 * [Hyperledger Fabric Docs](http://hyperledger-fabric.readthedocs.io/en/latest/)
-* [Decentralized Energy with Composer](https://developer.ibm.com/code/journey/decentralized-energy-hyperledger-composer/)
 * [IBM Code Patterns for Blockchain](https://developer.ibm.com/patterns/category/blockchain/)
 
 ## License
