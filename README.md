@@ -2,7 +2,7 @@
 
 >Hyperledger Fabric sample Decentralized Energy on IBM Blockchain Platform 2.0
 
-This code pattern demonstrates setting up a network on the IBM Blockchain Platform 2.0 and deploying the Decentralized smart contract on the network.  Next, we generate client side certificates so the developer can subsequently enroll an application identity and then submit transactions on the smart contract.   The application is setup with a Node.js server using the Fabric Node SDK to process requests to the network.
+This code pattern demonstrates setting up a network on the IBM Blockchain Platform 2.0 and deploying the Decentralized smart contract on the network.  Next, we generate client-side certificates so the developer can subsequently enroll an application identity and then submit transactions on the smart contract.   The application is setup with a Node.js server using the Fabric Node SDK to process requests to the network.
 
 A key application of Blockchain being currently explored is a Decentralized Energy network. The idea stems from a neighborhood where certain Residents are producing energy through Solar panels or other means, and can sell excess energy to Residents needing energy. The transactions would be based on coins in each Resident's account. As per a pre-determined contract and rate, the coins would be debited from the consumer and credited to the producer, for a certain billing period. Each transaction would need to be atomic and added to a Blockchain ledger for trust and verification. The network can include Banks to transact coins for Fiat currency (USD). The network can have Utility Company who can buy or provide energy through the network.
 
@@ -94,7 +94,7 @@ We will use the IBM Blockchain Platform extension to package the smart contract.
 
 * Next, right click on the packaged contract (in this case, select decentralized-energy@0.0.1) to export it and choose `Export Package`.
 
-* Choose a location on your machine and save `.cds` file.  We will use this packages smart contract later to deploy on the IBM Blockchain Platform 2.0 service.
+* Choose a location on your machine and save `.cds` file.  We will deploy this smart contract package on the IBM Blockchain Platform 2.0 service in a later step.
 
 
 Now, we will start creating our Hyperledger Fabric network on the IBM Cloud.
@@ -117,7 +117,7 @@ Now, we will start creating our Hyperledger Fabric network on the IBM Cloud.
 </p>
 <br>
 
-* After your kubernetes cluster is up and running, you can deploy your IBM Blockchain Platform on the cluster.  The service walks through few steps and finds your cluster on the IBM Cloud to deploy the service on.
+* After your Kubernetes cluster is up and running, you can deploy your IBM Blockchain Platform on the cluster.  The service walks through few steps and finds your cluster on the IBM Cloud to deploy the service on.
 
 <br>
 <p align="center">
@@ -338,7 +338,7 @@ We will build a network as provided by the IBM Blockchain Platform [documentatio
 <br>
 
 * #### Create an application admin
-  - Go to the <b>Nodes</b> tab on the left bar, and under <b>Certif Authorities</b>, choose your organization CA, <b>Org1 CA</b>.
+  - Go to the <b>Nodes</b> tab on the left bar, and under <b>Certificate Authorities</b>, choose your organization CA, <b>Org1 CA</b>.
   - Click on <b>Register user</b>.
   - Give an <b>Enroll ID</b> and <b>Enroll Secret</b> to administer your application users, `app-admin` and `app-adminpw`.
   - Choose `client` as <b>Type</b> and any organization for affiliation.  We can pick `org1` to be consistent.
@@ -451,7 +451,7 @@ You can go to the IBM Blockchain Platform v2 console to monitor your network and
   ```
 
 
-- Now lets register each of our participants. We will register `R1` as resident, `B1` as bank, `U1` as utility company.  Navigate to `add-participants` folder and register the resident identity:  
+- Now let's register each of our participants. We will register `R1` as resident, `B1` as bank, `U1` as utility company.  Navigate to `add-participants` folder and register the resident identity:  
   ```bash
   cd add-participants
   node registerResident.js
@@ -471,7 +471,7 @@ You can go to the IBM Blockchain Platform v2 console to monitor your network and
   node registerUtilityCompany.js
   ```
 
-- Now add the participants on the state.  The contract stores the id of the identity creating the participant as their `participantId`.  Lets add our resident:
+- Now add the participants on the state.  The contract stores the id of the identity creating the participant as their `participantId`.  Let's add our resident:
   ```bash
   node addResident.js
   ```
@@ -493,7 +493,7 @@ You can go to the IBM Blockchain Platform v2 console to monitor your network and
   node addUtilityCompany.js
   ```
 
-- Now lets perform the `EnergyTrade` and `CashTrade` transactions.  These transactions will verify the sender's id, as the id on the world state before updating the state.  In our case that is our resident R1:
+- Now let's perform the `EnergyTrade` and `CashTrade` transactions.  These transactions will verify the sender's id, as the id on the world state before updating the state.  In our case that is our resident R1:
   ```bash
   cd ../invoker-tx/
   node energy-trade.js
@@ -506,7 +506,7 @@ You can go to the IBM Blockchain Platform v2 console to monitor your network and
   ...
 
   ```
-  Similarly, lets do the `CashTrade` transaction between resident and bank.
+  Similarly, let's do the `CashTrade` transaction between resident and bank.
 
   ```bash
   node cash-trade.js
