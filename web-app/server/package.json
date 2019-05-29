@@ -13,7 +13,7 @@
     "express-jwt": "^5.3.1",
     "fabric-ca-client": "~1.4.0",
     "fabric-network": "~1.4.0",
-    "jsonwebtoken": "^7.4.1",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.9"
   }

@@ -20,6 +20,20 @@ class MyContract extends Contract {
         await ctx.stub.putState('identityMap', Buffer.from(JSON.stringify(emptyList)));
     }
 
+    //addResident
+    // "R1", "Carlos", "Roca", "1000","100","kwh", "100", "USD"
+    
+    //addBank
+    //"B1","UNITED","10000","1000","USD"
+    
+    //addUtitlity
+    //"U1", "United", "10000", "100", "kwh"
+
+    //cashTrade
+    //"1","10","B1", "R1"
+    
+    //energyTrade
+    //"1", "10", "U1", "R1"
 
     // participant functions
 
@@ -54,7 +68,7 @@ class MyContract extends Contract {
 
         //add residentId to 'resident' key
         const data = await ctx.stub.getState('residents');
-        var residents = JSON.parse(data.toString());
+        var residents = JSON.parse(data);
 
         // detects duplicate IDs
         if (residents.indexOf(residentId) == -1) {
@@ -91,7 +105,7 @@ class MyContract extends Contract {
 
         //add bankId to 'banks' key
         const data = await ctx.stub.getState('banks');
-        var banks = JSON.parse(data.toString());
+        var banks = JSON.parse(data);
 
         // detects duplicate IDs
         if (banks.indexOf(bankId) == -1) {
@@ -129,7 +143,7 @@ class MyContract extends Contract {
 
         //add utilityCompanyId to 'utilityCompanies' key
         const data = await ctx.stub.getState('utilityCompanies');
-        var utilityCompanies = JSON.parse(data.toString());
+        var utilityCompanies = JSON.parse(data);
 
         // detects duplicate IDs
         if (utilityCompanies.indexOf(utilityCompanyId) == -1) {
@@ -155,7 +169,15 @@ class MyContract extends Contract {
         if (!senderData) {
             throw new Error('Sender does not exist, create participant first');
         }
-        var sender = JSON.parse(senderData.toString());
+
+        const receiverData = await ctx.stub.getState(energyReceiverId);
+        if (!receiverData) {
+            throw new Error('Receiver does not exist, create participant first');
+        }
+
+        var sender = JSON.parse(senderData);
+        var receiver = JSON.parse(senderData);
+
         if (cid.getID() != sender.participantId) {
             throw new Error('Incorrect ID used');
         }
@@ -167,16 +189,14 @@ class MyContract extends Contract {
         if (receiver.coins.value < coinsValue) {
             throw new Error('Receiver does not have enough coins in the account');
         }
+        console.log('sender')               
+        console.log(sender)  
         sender.energy.value = sender.energy.value - Number(energyValue);
         sender.coins.value = coinsValue + sender.coins.value;
         await ctx.stub.putState(energySenderId, Buffer.from(JSON.stringify(sender)));
 
         //update energyReceiverId account
-        const receiverData = await ctx.stub.getState(energyReceiverId);
-        if (!receiverData) {
-            throw new Error('Receiver does not exist, create participant first');
-        }
-        var receiver = JSON.parse(receiverData.toString());
+
         receiver.energy.value = receiver.energy.value + Number(energyValue);
         receiver.coins.value = receiver.coins.value - coinsValue ;
         await ctx.stub.putState(energyReceiverId, Buffer.from(JSON.stringify(receiver)));
@@ -191,6 +211,7 @@ class MyContract extends Contract {
 
     //cash trade for coins
     async CashTrade(ctx, cashRate, cashValue, cashReceiverId, cashSenderId) {
+      console.log('cashTrade transaction **************')
         var cid = new ClientIdentity(ctx.stub);
         console.info(`Received "CashTrade" transaction from ${cid.getID()}`);
         var coinsValue = Number(cashRate) * Number(cashValue);
@@ -200,7 +221,20 @@ class MyContract extends Contract {
         if (!senderData) {
             throw new Error('Sender does not exist, create participant first');
         }
-        var sender = JSON.parse(senderData.toString());
+
+        const receiverData = await ctx.stub.getState(cashReceiverId);
+        if (!receiverData) {
+            throw new Error('Receiver does not exist, create participant first');
+        }
+        // console.log(JSON.parse(senderData))
+        var sender = JSON.parse(senderData);
+        var receiver = JSON.parse(receiverData);
+
+        console.log('sender: ')
+        console.log(sender)
+        console.log('receiver: ')
+        console.log(receiver)
+
         if (cid.getID() != sender.participantId) {
             throw new Error('Incorrect ID used');
         }
@@ -212,13 +246,16 @@ class MyContract extends Contract {
         if (receiver.coins.value < coinsValue) {
             throw new Error('Receiver does not have enough coins in the account');
         }
+
         sender.cash.value = sender.cash.value - Number(cashValue);
+        console.log('sender.cash.value: ')
         sender.coins.value = sender.coins.value + coinsValue;
+        console.log('sender.coins.value: ')
         await ctx.stub.putState(cashSenderId, Buffer.from(JSON.stringify(sender)));
+        console.log('after putState sender')
 
         //update energyReceiverId account
-        const receiverData = await ctx.stub.getState(cashReceiverId);
-        var receiver = JSON.parse(receiverData.toString());                
+             
         receiver.cash.value = receiver.cash.value + Number(cashValue);
         receiver.coins.value = receiver.coins.value - coinsValue;
         await ctx.stub.putState(cashReceiverId, Buffer.from(JSON.stringify(receiver)));
