@@ -58,7 +58,7 @@ async function tradeCash() {
         const cashTradeResponse = await contract.submitTransaction('CashTrade', cashRate, cashValue, cashReceiverId, cashSenderId);
         // console.log('cashTradeResponse: ')
         // console.log(cashTradeResponse.toString('utf8'));
-        console.log('cashTradeResponse_JSON.parse_response: ')
+        console.log('cashTradeResponse_JSON.parse_response: ');
         console.log(JSON.parse(JSON.parse(cashTradeResponse.toString())));
 
         // Disconnect from the gateway.

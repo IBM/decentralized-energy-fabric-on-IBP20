@@ -63,13 +63,13 @@ async function addUtilityCompany() {
 
         console.log('\nGet utilityCompanyId state: ' + utilityCompanyId);
         const utilityCompanyIdResponse = await contract.evaluateTransaction('GetState', utilityCompanyId);
-        console.log('utilityCompanyIdResponse_JSON.parse_response: ')
+        console.log('utilityCompanyIdResponse_JSON.parse_response: ');
         console.log(JSON.parse(JSON.parse(utilityCompanyIdResponse.toString())));
 
 
         console.log('\nGet utility companies');
         const responseResidents = await contract.evaluateTransaction('GetState', "utilityCompanies");        
-        console.log('responseResidents_JSON.parse_response: ')
+        console.log('responseResidents_JSON.parse_response: ');
         console.log(JSON.parse(JSON.parse(responseResidents.toString())));
 
 

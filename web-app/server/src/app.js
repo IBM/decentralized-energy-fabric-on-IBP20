@@ -30,7 +30,7 @@ app.post('/api/Resident', (req, res) => {
   let newKey = 'resident' + Math.floor(Math.random() * 100000);
   network.addResident(newKey, req.body.firstName, req.body.lastName, req.body.coins, req.body.energy, req.body.energyUnits, req.body.cash, req.body.cashCurrency )
   .then((response) => {
-    res.send(response)
+    res.send(response);
   });
 });
 
@@ -38,7 +38,7 @@ app.post('/api/Resident', (req, res) => {
 app.get('/api/Resident', (req, res) => {   
   network.getAllParticipants('residents')
     .then((response) => {
-      res.send(response)
+      res.send(response);
     });
 });
 
@@ -46,7 +46,7 @@ app.get('/api/Resident/:id', (req, res) => {
   let resident_id = req.params.id;
   network.getParticipant(resident_id)
     .then((response) => {
-      res.send(response)
+      res.send(response);
     });
 
 });
@@ -55,14 +55,14 @@ app.post('/api/Bank', (req, res) => {
   let newKey = 'bank' + Math.floor(Math.random() * 100000);
   network.addBank(newKey, req.body.name, req.body.coins, req.body.cash, req.body.cashCurrency)
   .then((response) => {
-    res.send(response)
+    res.send(response);
   });
 });
 
 app.get('/api/Bank', (req, res) => {  
   network.getAllParticipants('banks')
   .then((response) => {
-    res.send(response)
+    res.send(response);
   });
 });
 
@@ -130,4 +130,4 @@ app.get('/api/Blockchain', (req, res) => {
 });
 
 
-app.listen(process.env.PORT || 8081)
+app.listen(process.env.PORT || 8081);

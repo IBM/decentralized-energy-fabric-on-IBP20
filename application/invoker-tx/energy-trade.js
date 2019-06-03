@@ -58,7 +58,7 @@ async function tradeEnergy() {
         const energyTradeResponse = await contract.submitTransaction('EnergyTrade', energyRate, energyValue, energyReceiverId, energySenderId);
         // console.log('energyTradeResponse: ')
         // console.log(energyTradeResponse.toString('utf8'));
-        console.log('response: ')
+        console.log('response: ');
         console.log(JSON.parse(JSON.parse(energyTradeResponse.toString())));
 
         // Disconnect from the gateway.

@@ -53,9 +53,9 @@ async function addBank() {
         console.log('\nSubmit AddBank transaction.');
         var bankId = "B1";
         var name = "UNITED";
-        var coinsBalance = "10000"
-        var cashBalance = "1000"
-        var cashCurrency = "USD"
+        var coinsBalance = "10000";
+        var cashBalance = "1000";
+        var cashCurrency = "USD";
 
         const addBankResponse = await contract.submitTransaction('AddBank', bankId, name, coinsBalance, cashBalance, cashCurrency);
         // console.log('addBankResponse: ');
@@ -65,13 +65,13 @@ async function addBank() {
 
         console.log('\nGet bankId state: ' + bankId);
         const bankIdResponse = await contract.evaluateTransaction('GetState', bankId);
-        console.log('bankIdResponse_JSON.parse_response: ')
+        console.log('bankIdResponse_JSON.parse_response: ');
         console.log(JSON.parse(JSON.parse(bankIdResponse.toString())));
 
 
         console.log('\nGet banks');
         const responseBanks = await contract.evaluateTransaction('GetState', "banks");
-        console.log('responseBanks_JSON.parse_response: ')
+        console.log('responseBanks_JSON.parse_response: ');
         console.log(JSON.parse(JSON.parse(responseBanks.toString())));
 
 

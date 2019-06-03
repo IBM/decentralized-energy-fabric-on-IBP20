@@ -66,13 +66,13 @@ async function addResident() {
 
         console.log('\nGet residentId state: ' + residentId);
         const residentIdResponse = await contract.evaluateTransaction('GetState', residentId);        
-        console.log('residentIdResponse_JSON.parse_response: ')
+        console.log('residentIdResponse_JSON.parse_response: ');
         console.log(JSON.parse(JSON.parse(residentIdResponse.toString())));
 
 
         console.log('\nGet residents');
         const responseResidents = await contract.evaluateTransaction('GetState', "residents");
-        console.log('responseResidents_JSON.parse_response: ')
+        console.log('responseResidents_JSON.parse_response: ');
         console.log(JSON.parse(JSON.parse(responseResidents.toString())));
 
         // Disconnect from the gateway.

@@ -20,40 +20,23 @@ class MyContract extends Contract {
         await ctx.stub.putState('identityMap', Buffer.from(JSON.stringify(emptyList)));
     }
 
-    //addResident
-    // "R1", "Carlos", "Roca", "1000","100","kwh", "100", "USD"
-    
-    //addBank
-    //"B1","UNITED","10000","1000","USD"
-    
-    //addUtitlity
-    //"U1", "United", "10000", "100", "kwh"
-
-    //cashTrade
-    //"1","10","B1", "R1"
-    
-    //energyTrade
-    //"1", "10", "U1", "R1"
-
-    // participant functions
-
     async AddResident(ctx, residentId, firstName, lastName, coinsBalance, energyValue, energyUnits, cashBalance, cashCurrency) {
         var cid = new ClientIdentity(ctx.stub);
         console.info(`Received "AddResident" transaction from ${cid.getID()}`);
 
         var coins = {
             "value": Number(coinsBalance)
-        }
+        };
 
         var energy = {
             "value": Number(energyValue),
             "units": energyUnits
-        }
+        };
 
         var cash = {
             "value": Number(cashBalance),
             "currency": cashCurrency
-        }
+        };
 
         var resident = {
             "participantId": cid.getID(),
@@ -64,7 +47,7 @@ class MyContract extends Contract {
             "cash": cash,
             "energy": energy,
             "type": "resident"
-        }        
+        };
 
         //add residentId to 'resident' key
         const data = await ctx.stub.getState('residents');
@@ -87,12 +70,12 @@ class MyContract extends Contract {
         console.info(`Received "AddBank" transaction from ${cid.getID()}`);
         var coins = {
             "value": Number(coinsBalance)
-        }
+        };
 
         var cash = {
             "value": Number(cashBalance),
             "currency": cashCurrency
-        }
+        };
 
         var bank = {
             "participantId": cid.getID(),
@@ -101,7 +84,7 @@ class MyContract extends Contract {
             "coins": coins,
             "cash": cash,
             "type": "bank"
-        }        
+        };    
 
         //add bankId to 'banks' key
         const data = await ctx.stub.getState('banks');
@@ -125,12 +108,12 @@ class MyContract extends Contract {
         console.info(`Received "AddUtilityCompany" transaction from ${cid.getID()}`);
         var coins = {
             "value": Number(coinsBalance)
-        }
+        };
 
         var energy = {
             "value": Number(energyValue),
             "units": energyUnits
-        }
+        };
 
         var utilityCompany = {
             "participantId": cid.getID(),
@@ -139,7 +122,7 @@ class MyContract extends Contract {
             "coins": coins,
             "energy": energy,
             "type": "utilityCompany"
-        }        
+        };        
 
         //add utilityCompanyId to 'utilityCompanies' key
         const data = await ctx.stub.getState('utilityCompanies');
@@ -189,8 +172,8 @@ class MyContract extends Contract {
         if (receiver.coins.value < coinsValue) {
             throw new Error('Receiver does not have enough coins in the account');
         }
-        console.log('sender')               
-        console.log(sender)  
+        console.log('sender');               
+        console.log(sender);  
         sender.energy.value = sender.energy.value - Number(energyValue);
         sender.coins.value = coinsValue + sender.coins.value;
         await ctx.stub.putState(energySenderId, Buffer.from(JSON.stringify(sender)));
@@ -204,14 +187,13 @@ class MyContract extends Contract {
         var returnObj = {
             "sender": sender,
             "receiver": receiver
-        }
+        };
         return JSON.stringify(returnObj);
 
     }
 
     //cash trade for coins
     async CashTrade(ctx, cashRate, cashValue, cashReceiverId, cashSenderId) {
-      console.log('cashTrade transaction **************')
         var cid = new ClientIdentity(ctx.stub);
         console.info(`Received "CashTrade" transaction from ${cid.getID()}`);
         var coinsValue = Number(cashRate) * Number(cashValue);
@@ -230,11 +212,6 @@ class MyContract extends Contract {
         var sender = JSON.parse(senderData);
         var receiver = JSON.parse(receiverData);
 
-        console.log('sender: ')
-        console.log(sender)
-        console.log('receiver: ')
-        console.log(receiver)
-
         if (cid.getID() != sender.participantId) {
             throw new Error('Incorrect ID used');
         }
@@ -248,13 +225,10 @@ class MyContract extends Contract {
         }
 
         sender.cash.value = sender.cash.value - Number(cashValue);
-        console.log('sender.cash.value: ')
+        console.log('sender.cash.value: ');
         sender.coins.value = sender.coins.value + coinsValue;
-        console.log('sender.coins.value: ')
+        console.log('sender.coins.value: ');
         await ctx.stub.putState(cashSenderId, Buffer.from(JSON.stringify(sender)));
-        console.log('after putState sender')
-
-        //update energyReceiverId account
              
         receiver.cash.value = receiver.cash.value + Number(cashValue);
         receiver.coins.value = receiver.coins.value - coinsValue;
@@ -263,7 +237,7 @@ class MyContract extends Contract {
         var returnObj = {
             "sender": sender,
             "receiver": receiver
-        }
+        };
         return JSON.stringify(returnObj);
     }
 

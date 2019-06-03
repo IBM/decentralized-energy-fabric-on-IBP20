@@ -61,10 +61,9 @@ exports.addResident = async function(residentId, firstName, lastName, coinsBalan
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
-        response.error = error.message;
-        return response; 
+        return error; 
     }
-}
+};
 
 // add Bank transaction
 exports.addBank = async function(bankId, name, coinsBalance, cashBalance, cashCurrency) {
@@ -109,10 +108,9 @@ exports.addBank = async function(bankId, name, coinsBalance, cashBalance, cashCu
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
-        response.error = error.message;
-        return response; 
+        return error; 
     }
-}
+};
 
 // addUtilityCompany transaction
 exports.addUtilityCompany = async function(utilityCompanyId, name, coinsBalance, energyValue, energyUnits) {
@@ -156,11 +154,10 @@ exports.addUtilityCompany = async function(utilityCompanyId, name, coinsBalance,
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
-        response.error = error.message;
-        return response;
+        return error;
     }
    
-}
+};
 
 
 // energy trade transaction
@@ -206,10 +203,9 @@ exports.energyTrade = async function(energyRate, energyValue, energyReceiverId, 
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
-        response.error = error.message;
-        return response; 
+        return error; 
     }
-}
+};
 
 
 // energy trade transaction
@@ -255,10 +251,9 @@ exports.cashTrade = async function(cashRate, cashValue, cashReceiverId, cashSend
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
-        response.error = error.message;
-        return response; 
+        return error; 
     }
-}
+};
 
 
 exports.getAllParticipants = async function(participantType) {
@@ -310,11 +305,10 @@ exports.getAllParticipants = async function(participantType) {
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
-        response.error = error.message;
-        return response;
+        return error;
     }
 
-}
+};
 
 
 exports.getParticipant = async function(participantId) {
@@ -358,16 +352,18 @@ exports.getParticipant = async function(participantId) {
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
-        response.error = error.message;
-        return response;
+        return error;
     }
 
-}
+};
 
 
 exports.getBlockchain = async function() {
 
     try {
+
+        var response = {};
+
 
         const returnBlockchain = [];
 
@@ -382,7 +378,7 @@ exports.getBlockchain = async function() {
             console.log('An identity for the user ' + userName + ' does not exist in the wallet');
             console.log('Run the registerUser.js application before retrying');
             response.error = 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first';
-            return response;            
+            return response; 
         }
 
         // Create a new gateway for connecting to our peer node.
@@ -456,8 +452,7 @@ exports.getBlockchain = async function() {
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
-        response.error = error.message;
-        return response;
+        return error;
     }
 
-}
+};

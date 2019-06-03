@@ -63,62 +63,62 @@ async function main() {
         console.log('\nSubmit AddBank transaction.');
         var bankId = "B1"; 
         var name = "UNITED"; 
-        var coinsBalance = "10000" 
-        var cashBalance = "1000"
-        var cashCurrency = "USD"
+        coinsBalance = "10000";
+        cashBalance = "1000";
+        cashCurrency = "USD";
         
         const addBankResponse = await contract.submitTransaction('AddBank', bankId, name, coinsBalance, cashBalance, cashCurrency);
         console.log('addBankResponse: ');
         console.log(addBankResponse.toString('utf8'));
-        console.log('addBankResponse_JSON.parse: ')
+        console.log('addBankResponse_JSON.parse: ');
         console.log(JSON.parse(addBankResponse.toString()));
         
         
         console.log('\nSubmit AddUtilityCompany transaction.');
         var utilityCompanyId = "U1";
-        var name = "United";
-        var coinsBalance = "10000";
-        var energyValue = "100";
-        var energyUnits = "kwh";
+        name = "United";
+        coinsBalance = "10000";
+        energyValue = "100";
+        energyUnits = "kwh";
 
         const addUtilityCompanyResponse = await contract.submitTransaction('AddUtilityCompany', utilityCompanyId, name, coinsBalance, energyValue, energyUnits);
-        console.log('addUtilityCompanyResponse: ')
+        console.log('addUtilityCompanyResponse: ');
         console.log(addUtilityCompanyResponse.toString('utf8'));
-        console.log('addUtilityCompanyResponse_JSON.parse: ')
+        console.log('addUtilityCompanyResponse_JSON.parse: ');
         console.log(JSON.parse(addUtilityCompanyResponse.toString()));
 
         console.log('\nGet residentId state: ' + residentId);
         const residentIdResponse = await contract.submitTransaction('GetState', residentId);
-        console.log('residentIdResponse: ')
+        console.log('residentIdResponse: ');
         console.log(residentIdResponse.toString('utf8'));
-        console.log('residentIdResponse_JSON.parse_response: ')
+        console.log('residentIdResponse_JSON.parse_response: ');
         console.log(JSON.parse(residentIdResponse.toString()));
 
 
         console.log('\nSubmit EnergyTrade transaction.');
         var energyRate = "1";
-        var energyValue = "10";
+        energyValue = "10";
         var energyReceiverId = utilityCompanyId;
         var energySenderId = residentId;
 
         const energyTradeResponse = await contract.submitTransaction('EnergyTrade', energyRate, energyValue, energyReceiverId, energySenderId);
-        console.log('energyTradeResponse: ')
+        console.log('energyTradeResponse: ');
         console.log(energyTradeResponse.toString('utf8'));
-        console.log('energyTradeResponse_JSON.parse: ')
+        console.log('energyTradeResponse_JSON.parse: ');
         console.log(JSON.parse(energyTradeResponse.toString()));
 
         console.log('\nGet residentId state.');
         const residentIdResponse2 = await contract.submitTransaction('GetState', residentId);
-        console.log('residentIdResponse2: ')
+        console.log('residentIdResponse2: ');
         console.log(residentIdResponse2.toString('utf8'));
-        console.log('rresidentIdResponse2_JSON.parse_response: ')
+        console.log('residentIdResponse2_JSON.parse_response: ');
         console.log(JSON.parse(residentIdResponse2.toString()));
 
         console.log('\nGet residents');
         const responseResidents = await contract.submitTransaction('GetState', "residents");        
-        console.log('responseResidents: ')
+        console.log('responseResidents: ');
         console.log(responseResidents.toString('utf8'));
-        console.log('responseResidents_JSON.parse_response: ')
+        console.log('responseResidents_JSON.parse_response: ');
         console.log(JSON.parse(responseResidents.toString()));
 
 
