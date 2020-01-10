@@ -23,19 +23,19 @@
         "fabric-network": "1.4.0-rc2"
     },
     "devDependencies": {
-        "@types/chai": "^4.1.7",
-        "@types/mocha": "^5.2.5",
-        "@types/node": "^10.12.10",
+        "@types/chai": "^4.2.7",
+        "@types/mocha": "^5.2.7",
+        "@types/node": "^10.17.13",
         "@types/sinon": "^5.0.7",
-        "@types/sinon-chai": "^3.2.1",
+        "@types/sinon-chai": "^3.2.3",
         "chai": "^4.2.0",
         "mocha": "^5.2.0",
         "nyc": "^14.1.1",
-        "sinon": "^7.1.1",
-        "sinon-chai": "^3.3.0",
+        "sinon": "^7.5.0",
+        "sinon-chai": "^3.4.0",
         "ts-node": "^7.0.1",
-        "tslint": "^5.11.0",
-        "typescript": "^3.1.6"
+        "tslint": "^5.20.1",
+        "typescript": "^3.7.4"
     },
     "nyc": {
         "extension": [

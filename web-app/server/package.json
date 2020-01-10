@@ -14,10 +14,10 @@
     "eslint": "^6.8.0",
     "express": "^4.17.1",
     "express-jwt": "^5.3.1",
-    "fabric-ca-client": "~1.4.1",
-    "fabric-network": "~1.4.1",
+    "fabric-ca-client": "^1.4.4",
+    "fabric-network": "^1.4.4",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.4"
   }
 }
