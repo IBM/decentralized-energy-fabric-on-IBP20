@@ -13,7 +13,7 @@ class MyContract extends Contract {
     async instantiate(ctx) {
         console.info('Instantiate empty lists');
 
-        var emptyList = [];
+        let emptyList = [];
         await ctx.stub.putState('residents', Buffer.from(JSON.stringify(emptyList)));
         await ctx.stub.putState('banks', Buffer.from(JSON.stringify(emptyList)));
         await ctx.stub.putState('utilityCompanies', Buffer.from(JSON.stringify(emptyList)));
@@ -21,40 +21,40 @@ class MyContract extends Contract {
     }
 
     async AddResident(ctx, residentId, firstName, lastName, coinsBalance, energyValue, energyUnits, cashBalance, cashCurrency) {
-        var cid = new ClientIdentity(ctx.stub);
+        let cid = new ClientIdentity(ctx.stub);
         console.info(`Received "AddResident" transaction from ${cid.getID()}`);
 
-        var coins = {
-            "value": Number(coinsBalance)
+        let coins = {
+            value: Number(coinsBalance)
         };
 
-        var energy = {
-            "value": Number(energyValue),
-            "units": energyUnits
+        let energy = {
+            value: Number(energyValue),
+            units: energyUnits
         };
 
-        var cash = {
-            "value": Number(cashBalance),
-            "currency": cashCurrency
+        let cash = {
+            value: Number(cashBalance),
+            currency: cashCurrency
         };
 
-        var resident = {
-            "participantId": cid.getID(),
-            "residentId": residentId,
-            "firstName": firstName,
-            "lastName": lastName,
-            "coins": coins,
-            "cash": cash,
-            "energy": energy,
-            "type": "resident"
+        let resident = {
+            participantId: cid.getID(),
+            residentId: residentId,
+            firstName: firstName,
+            lastName: lastName,
+            coins: coins,
+            cash: cash,
+            energy: energy,
+            type: 'resident'
         };
 
         //add residentId to 'resident' key
         const data = await ctx.stub.getState('residents');
-        var residents = JSON.parse(data);
+        let residents = JSON.parse(data);
 
         // detects duplicate IDs
-        if (residents.indexOf(residentId) == -1) {
+        if (residents.indexOf(residentId) === -1) {
             residents.push(residentId);
             await ctx.stub.putState('residents', Buffer.from(JSON.stringify(residents)));
         } else {
@@ -66,32 +66,32 @@ class MyContract extends Contract {
     }
 
     async AddBank(ctx, bankId, name, coinsBalance, cashBalance, cashCurrency) {
-        var cid = new ClientIdentity(ctx.stub);
+        let cid = new ClientIdentity(ctx.stub);
         console.info(`Received "AddBank" transaction from ${cid.getID()}`);
-        var coins = {
-            "value": Number(coinsBalance)
+        let coins = {
+            value: Number(coinsBalance)
         };
 
-        var cash = {
-            "value": Number(cashBalance),
-            "currency": cashCurrency
+        let cash = {
+            value: Number(cashBalance),
+            currency: cashCurrency
         };
 
-        var bank = {
-            "participantId": cid.getID(),
-            "bankId": bankId,
-            "name": name,
-            "coins": coins,
-            "cash": cash,
-            "type": "bank"
-        };    
+        let bank = {
+            participantId: cid.getID(),
+            bankId: bankId,
+            name: name,
+            coins: coins,
+            cash: cash,
+            type: 'bank'
+        };
 
         //add bankId to 'banks' key
         const data = await ctx.stub.getState('banks');
-        var banks = JSON.parse(data);
+        let banks = JSON.parse(data);
 
         // detects duplicate IDs
-        if (banks.indexOf(bankId) == -1) {
+        if (banks.indexOf(bankId) === -1) {
             banks.push(bankId);
             await ctx.stub.putState('banks', Buffer.from(JSON.stringify(banks)));
         } else {
@@ -104,32 +104,32 @@ class MyContract extends Contract {
     }
 
     async AddUtilityCompany(ctx, utilityCompanyId, name, coinsBalance, energyValue, energyUnits) {
-        var cid = new ClientIdentity(ctx.stub);
+        let cid = new ClientIdentity(ctx.stub);
         console.info(`Received "AddUtilityCompany" transaction from ${cid.getID()}`);
-        var coins = {
-            "value": Number(coinsBalance)
+        let coins = {
+            value: Number(coinsBalance)
         };
 
-        var energy = {
-            "value": Number(energyValue),
-            "units": energyUnits
+        let energy = {
+            value: Number(energyValue),
+            units: energyUnits
         };
 
-        var utilityCompany = {
-            "participantId": cid.getID(),
-            "utilityCompanyId": utilityCompanyId,
-            "name": name,
-            "coins": coins,
-            "energy": energy,
-            "type": "utilityCompany"
-        };        
+        let utilityCompany = {
+            participantId: cid.getID(),
+            utilityCompanyId: utilityCompanyId,
+            name: name,
+            coins: coins,
+            energy: energy,
+            type: 'utilityCompany'
+        };
 
         //add utilityCompanyId to 'utilityCompanies' key
         const data = await ctx.stub.getState('utilityCompanies');
-        var utilityCompanies = JSON.parse(data);
+        let utilityCompanies = JSON.parse(data);
 
         // detects duplicate IDs
-        if (utilityCompanies.indexOf(utilityCompanyId) == -1) {
+        if (utilityCompanies.indexOf(utilityCompanyId) === -1) {
             utilityCompanies.push(utilityCompanyId);
             await ctx.stub.putState('utilityCompanies', Buffer.from(JSON.stringify(utilityCompanies)));
         } else {
@@ -143,9 +143,9 @@ class MyContract extends Contract {
 
     //energy trade for coins
     async EnergyTrade(ctx, energyRate, energyValue, energyReceiverId, energySenderId) {
-        var cid = new ClientIdentity(ctx.stub);
+        let cid = new ClientIdentity(ctx.stub);
         console.info(`Received "EnergyTrade" transaction from ${cid.getID()}`);
-        var coinsValue = Number(energyRate) * Number(energyValue);
+        let coinsValue = Number(energyRate) * Number(energyValue);
 
         // first check: tx invoker can only send from his account
         const senderData = await ctx.stub.getState(energySenderId);
@@ -158,10 +158,10 @@ class MyContract extends Contract {
             throw new Error('Receiver does not exist, create participant first');
         }
 
-        var sender = JSON.parse(senderData);
-        var receiver = JSON.parse(senderData);
+        let sender = JSON.parse(senderData);
+        let receiver = JSON.parse(senderData);
 
-        if (cid.getID() != sender.participantId) {
+        if (cid.getID() !== sender.participantId) {
             throw new Error('Incorrect ID used');
         }
 
@@ -172,8 +172,8 @@ class MyContract extends Contract {
         if (receiver.coins.value < coinsValue) {
             throw new Error('Receiver does not have enough coins in the account');
         }
-        console.log('sender');               
-        console.log(sender);  
+        console.log('sender');
+        console.log(sender);
         sender.energy.value = sender.energy.value - Number(energyValue);
         sender.coins.value = coinsValue + sender.coins.value;
         await ctx.stub.putState(energySenderId, Buffer.from(JSON.stringify(sender)));
@@ -184,9 +184,9 @@ class MyContract extends Contract {
         receiver.coins.value = receiver.coins.value - coinsValue ;
         await ctx.stub.putState(energyReceiverId, Buffer.from(JSON.stringify(receiver)));
 
-        var returnObj = {
-            "sender": sender,
-            "receiver": receiver
+        let returnObj = {
+            sender: sender,
+            receiver: receiver
         };
         return JSON.stringify(returnObj);
 
@@ -194,9 +194,9 @@ class MyContract extends Contract {
 
     //cash trade for coins
     async CashTrade(ctx, cashRate, cashValue, cashReceiverId, cashSenderId) {
-        var cid = new ClientIdentity(ctx.stub);
+        let cid = new ClientIdentity(ctx.stub);
         console.info(`Received "CashTrade" transaction from ${cid.getID()}`);
-        var coinsValue = Number(cashRate) * Number(cashValue);
+        let coinsValue = Number(cashRate) * Number(cashValue);
 
         // first check: tx invoker can only send from his account
         const senderData = await ctx.stub.getState(cashSenderId);
@@ -209,10 +209,10 @@ class MyContract extends Contract {
             throw new Error('Receiver does not exist, create participant first');
         }
         // console.log(JSON.parse(senderData))
-        var sender = JSON.parse(senderData);
-        var receiver = JSON.parse(receiverData);
+        let sender = JSON.parse(senderData);
+        let receiver = JSON.parse(receiverData);
 
-        if (cid.getID() != sender.participantId) {
+        if (cid.getID() !== sender.participantId) {
             throw new Error('Incorrect ID used');
         }
 
@@ -229,23 +229,23 @@ class MyContract extends Contract {
         sender.coins.value = sender.coins.value + coinsValue;
         console.log('sender.coins.value: ');
         await ctx.stub.putState(cashSenderId, Buffer.from(JSON.stringify(sender)));
-             
+
         receiver.cash.value = receiver.cash.value + Number(cashValue);
         receiver.coins.value = receiver.coins.value - coinsValue;
         await ctx.stub.putState(cashReceiverId, Buffer.from(JSON.stringify(receiver)));
 
-        var returnObj = {
-            "sender": sender,
-            "receiver": receiver
+        let returnObj = {
+            sender: sender,
+            receiver: receiver
         };
         return JSON.stringify(returnObj);
     }
 
     // get the state from key
     async GetState(ctx, key) {
-        
+
         const data = await ctx.stub.getState(key);
-        var jsonData;
+        let jsonData;
         if (!data) {
             jsonData = { error: `no value with key ${key} exists` };
         } else {

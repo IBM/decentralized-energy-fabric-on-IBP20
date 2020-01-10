@@ -12,8 +12,8 @@ const path = require('path');
 const configPath = path.join(process.cwd(), '..', '/config.json');
 const configJSON = fs.readFileSync(configPath, 'utf8');
 const config = JSON.parse(configJSON);
-var connection_file = config.connection_file;
-var gatewayDiscovery = config.gatewayDiscovery;
+let connection_file = config.connection_file;
+let gatewayDiscovery = config.gatewayDiscovery;
 
 const ccpPath = path.resolve(__dirname, '..', connection_file);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
@@ -51,11 +51,11 @@ async function addBank() {
         // Submit the specified transaction.
         //console.log('Transaction has been submitted');
         console.log('\nSubmit AddBank transaction.');
-        var bankId = "B1";
-        var name = "UNITED";
-        var coinsBalance = "10000";
-        var cashBalance = "1000";
-        var cashCurrency = "USD";
+        let bankId = 'B1';
+        let name = 'UNITED';
+        let coinsBalance = '10000';
+        let cashBalance = '1000';
+        let cashCurrency = 'USD';
 
         const addBankResponse = await contract.submitTransaction('AddBank', bankId, name, coinsBalance, cashBalance, cashCurrency);
         // console.log('addBankResponse: ');
@@ -70,7 +70,7 @@ async function addBank() {
 
 
         console.log('\nGet banks');
-        const responseBanks = await contract.evaluateTransaction('GetState', "banks");
+        const responseBanks = await contract.evaluateTransaction('GetState', 'banks');
         console.log('responseBanks_JSON.parse_response: ');
         console.log(JSON.parse(JSON.parse(responseBanks.toString())));
 

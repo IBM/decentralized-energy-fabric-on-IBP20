@@ -1,6 +1,7 @@
 
 'use strict';
 
+// eslint-disable-next-line no-unused-vars
 const { FileSystemWallet, Gateway, X509WalletMixin } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
@@ -10,9 +11,9 @@ const path = require('path');
 const configPath = path.join(process.cwd(), '/config.json');
 const configJSON = fs.readFileSync(configPath, 'utf8');
 const config = JSON.parse(configJSON);
-var connection_file = config.connection_file;
-var userName = config.appAdmin;
-var gatewayDiscovery = config.gatewayDiscovery;
+let connection_file = config.connection_file;
+let userName = config.appAdmin;
+let gatewayDiscovery = config.gatewayDiscovery;
 
 // connect to the connection file
 const ccpPath = path.join(process.cwd(), connection_file);
@@ -23,7 +24,7 @@ const ccp = JSON.parse(ccpJSON);
 exports.addResident = async function(residentId, firstName, lastName, coinsBalance, energyValue, energyUnits, cashBalance, cashCurrency) {
     try {
 
-        var response = {};
+        let response = {};
 
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), '/wallet');
@@ -49,19 +50,20 @@ exports.addResident = async function(residentId, firstName, lastName, coinsBalan
         // Get the contract from the network.
         const contract = network.getContract('decentralizedenergy');
 
+        // eslint-disable-next-line no-unused-vars
         let result = await contract.submitTransaction('AddResident', residentId, firstName, lastName, coinsBalance.toString(), energyValue.toString(), energyUnits, cashBalance.toString(), cashCurrency);
         console.log('Transaction has been submitted');
-        
+
         // Disconnect from the gateway.
         await gateway.disconnect();
 
         response.msg = 'AddResident Transaction has been submitted';
-        //return response;        
+        //return response;
         return response;
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
-        return error; 
+        return error;
     }
 };
 
@@ -69,7 +71,7 @@ exports.addResident = async function(residentId, firstName, lastName, coinsBalan
 exports.addBank = async function(bankId, name, coinsBalance, cashBalance, cashCurrency) {
     try {
 
-        var response = {};
+        let response = {};
 
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), '/wallet');
@@ -95,7 +97,8 @@ exports.addBank = async function(bankId, name, coinsBalance, cashBalance, cashCu
         // Get the contract from the network.
         const contract = network.getContract('decentralizedenergy');
 
-        // Submit the specified transaction.        
+        // Submit the specified transaction.
+        // eslint-disable-next-line no-unused-vars
         let result = await contract.submitTransaction('AddBank', bankId, name, coinsBalance.toString(), cashBalance.toString(), cashCurrency);
         console.log('Transaction has been submitted');
 
@@ -108,7 +111,7 @@ exports.addBank = async function(bankId, name, coinsBalance, cashBalance, cashCu
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
-        return error; 
+        return error;
     }
 };
 
@@ -116,7 +119,7 @@ exports.addBank = async function(bankId, name, coinsBalance, cashBalance, cashCu
 exports.addUtilityCompany = async function(utilityCompanyId, name, coinsBalance, energyValue, energyUnits) {
     try {
 
-        var response = {};
+        let response = {};
 
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), '/wallet');
@@ -129,7 +132,7 @@ exports.addUtilityCompany = async function(utilityCompanyId, name, coinsBalance,
             console.log('An identity for the user ' + userName + ' does not exist in the wallet');
             console.log('Run the registerUser.js application before retrying');
             response.error = 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first';
-            return response;            
+            return response;
         }
 
         // Create a new gateway for connecting to our peer node.
@@ -156,7 +159,7 @@ exports.addUtilityCompany = async function(utilityCompanyId, name, coinsBalance,
         console.error(`Failed to submit transaction: ${error}`);
         return error;
     }
-   
+
 };
 
 
@@ -164,7 +167,7 @@ exports.addUtilityCompany = async function(utilityCompanyId, name, coinsBalance,
 exports.energyTrade = async function(energyRate, energyValue, energyReceiverId, energySenderId) {
     try {
 
-        var response = {};
+        let response = {};
 
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), '/wallet');
@@ -190,8 +193,9 @@ exports.energyTrade = async function(energyRate, energyValue, energyReceiverId, 
         // Get the contract from the network.
         const contract = network.getContract('decentralizedenergy');
 
-        // Submit the specified transaction.        
-        let result = await contract.submitTransaction('EnergyTrade', energyRate.toString(), energyValue.toString(), energyReceiverId, energySenderId)
+        // Submit the specified transaction.
+        // eslint-disable-next-line no-unused-vars
+        let result = await contract.submitTransaction('EnergyTrade', energyRate.toString(), energyValue.toString(), energyReceiverId, energySenderId);
         console.log('Transaction has been submitted');
 
         // Disconnect from the gateway.
@@ -203,7 +207,7 @@ exports.energyTrade = async function(energyRate, energyValue, energyReceiverId, 
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
-        return error; 
+        return error;
     }
 };
 
@@ -212,7 +216,7 @@ exports.energyTrade = async function(energyRate, energyValue, energyReceiverId, 
 exports.cashTrade = async function(cashRate, cashValue, cashReceiverId, cashSenderId) {
     try {
 
-        var response = {};
+        let response = {};
 
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), '/wallet');
@@ -238,8 +242,9 @@ exports.cashTrade = async function(cashRate, cashValue, cashReceiverId, cashSend
         // Get the contract from the network.
         const contract = network.getContract('decentralizedenergy');
 
-        // Submit the specified transaction.        
-        let result = await contract.submitTransaction('CashTrade', cashRate.toString(), cashValue.toString(), cashReceiverId, cashSenderId)
+        // Submit the specified transaction.
+        // eslint-disable-next-line no-unused-vars
+        let result = await contract.submitTransaction('CashTrade', cashRate.toString(), cashValue.toString(), cashReceiverId, cashSenderId);
         console.log('Transaction has been submitted');
 
         // Disconnect from the gateway.
@@ -251,7 +256,7 @@ exports.cashTrade = async function(cashRate, cashValue, cashReceiverId, cashSend
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
-        return error; 
+        return error;
     }
 };
 
@@ -260,7 +265,7 @@ exports.getAllParticipants = async function(participantType) {
 
     try {
 
-        var response = {};
+        let response = {};
 
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), '/wallet');
@@ -273,7 +278,7 @@ exports.getAllParticipants = async function(participantType) {
             console.log('An identity for the user ' + userName + ' does not exist in the wallet');
             console.log('Run the registerUser.js application before retrying');
             response.error = 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first';
-            return response;            
+            return response;
         }
 
         // Create a new gateway for connecting to our peer node.
@@ -292,10 +297,10 @@ exports.getAllParticipants = async function(participantType) {
 
         let allParticipants = [];
 
-        for (const participantId of participants) { 
+        for (const participantId of participants) {
             const responseParticipant = await contract.evaluateTransaction('GetState', participantId);
-            let participant = JSON.parse(JSON.parse(responseParticipant.toString()));                       
-            allParticipants.push(participant); 
+            let participant = JSON.parse(JSON.parse(responseParticipant.toString()));
+            allParticipants.push(participant);
         }
 
         // Disconnect from the gateway.
@@ -315,7 +320,7 @@ exports.getParticipant = async function(participantId) {
 
     try {
 
-        var response = {};
+        let response = {};
 
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), '/wallet');
@@ -328,7 +333,7 @@ exports.getParticipant = async function(participantId) {
             console.log('An identity for the user ' + userName + ' does not exist in the wallet');
             console.log('Run the registerUser.js application before retrying');
             response.error = 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first';
-            return response;            
+            return response;
         }
 
         // Create a new gateway for connecting to our peer node.
@@ -341,9 +346,9 @@ exports.getParticipant = async function(participantId) {
         // Get the contract from the network.
         const contract = network.getContract('decentralizedenergy');
 
-        // Evaluate the specified transaction.        
+        // Evaluate the specified transaction.
         const responseParticipant = await contract.evaluateTransaction('GetState', participantId);
-        let participant = JSON.parse(JSON.parse(responseParticipant.toString()));                       
+        let participant = JSON.parse(JSON.parse(responseParticipant.toString()));
 
         // Disconnect from the gateway.
         await gateway.disconnect();
@@ -362,7 +367,7 @@ exports.getBlockchain = async function() {
 
     try {
 
-        var response = {};
+        let response = {};
 
 
         const returnBlockchain = [];
@@ -378,7 +383,7 @@ exports.getBlockchain = async function() {
             console.log('An identity for the user ' + userName + ' does not exist in the wallet');
             console.log('Run the registerUser.js application before retrying');
             response.error = 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first';
-            return response; 
+            return response;
         }
 
         // Create a new gateway for connecting to our peer node.
@@ -386,64 +391,65 @@ exports.getBlockchain = async function() {
         await gateway.connect(ccp, { wallet, identity: userName, discovery: gatewayDiscovery });
 
         // Get the network (channel) our contract is deployed to.
-        const network = await gateway.getNetwork('mychannel');        
+        const network = await gateway.getNetwork('mychannel');
 
         // Get the contract from the network.
+        // eslint-disable-next-line no-unused-vars
         const contract = network.getContract('decentralizedenergy');
 
         const client = gateway.getClient();
-    
+
         const channel = client.getChannel('mychannel');
         console.log('Got addressability to channel');
-        
+
         const blockchainInfo = await channel.queryInfo();
         const height = blockchainInfo.height.low;
 
-        for (var i = 0; i < height; i++) {
+        for (let i = 0; i < height; i++) {
 
-            var returnBlock = {};
-            var block = await channel.queryBlock(i);
-      
+            let returnBlock = {};
+            let block = await channel.queryBlock(i);
+
             returnBlock.number = block.header.number;
             returnBlock.data_hash = block.header.data_hash;
-      
-            var transactions = [];
-            var ns_rwsets = [];
+
+            let transactions = [];
+            let ns_rwsets = [];
             if (block.data.data && block.data.data.length) {
-              returnBlock.num_transactions = block.data.data.length;
-      
-              for (var j = 0; j < returnBlock.num_transactions; j++) {
-                var transaction = {};
-      
-                transaction.id = block.data.data[j].payload.header.channel_header.tx_id;
-                transaction.timestamp = block.data.data[j].payload.header.channel_header.timestamp;
-      
-                if (block.data.data[j].payload.data.actions && block.data.data[j].payload.data.actions.length) {
-                  var actions_length = block.data.data[j].payload.data.actions.length;
-                  for (var k = 0; k < actions_length; k++) {
-      
-                    if (block.data.data[j].payload.data.actions[k].payload.action.proposal_response_payload.extension.results.ns_rwset && block.data.data[j].payload.data.actions[k].payload.action.proposal_response_payload.extension.results.ns_rwset.length) {
-                      var ns_rwset_length = block.data.data[j].payload.data.actions[k].payload.action.proposal_response_payload.extension.results.ns_rwset.length;
-      
-                      for (var l = 0; l < ns_rwset_length; l++) {
-                        var ns_rwset = block.data.data[j].payload.data.actions[k].payload.action.proposal_response_payload.extension.results.ns_rwset[l].rwset;
-                        ns_rwsets.push(ns_rwset);
-                      }
+                returnBlock.num_transactions = block.data.data.length;
+
+                for (let j = 0; j < returnBlock.num_transactions; j++) {
+                    let transaction = {};
+
+                    transaction.id = block.data.data[j].payload.header.channel_header.tx_id;
+                    transaction.timestamp = block.data.data[j].payload.header.channel_header.timestamp;
+
+                    if (block.data.data[j].payload.data.actions && block.data.data[j].payload.data.actions.length) {
+                        let actions_length = block.data.data[j].payload.data.actions.length;
+                        for (let k = 0; k < actions_length; k++) {
+
+                            if (block.data.data[j].payload.data.actions[k].payload.action.proposal_response_payload.extension.results.ns_rwset && block.data.data[j].payload.data.actions[k].payload.action.proposal_response_payload.extension.results.ns_rwset.length) {
+                                let ns_rwset_length = block.data.data[j].payload.data.actions[k].payload.action.proposal_response_payload.extension.results.ns_rwset.length;
+
+                                for (let l = 0; l < ns_rwset_length; l++) {
+                                    let ns_rwset = block.data.data[j].payload.data.actions[k].payload.action.proposal_response_payload.extension.results.ns_rwset[l].rwset;
+                                    ns_rwsets.push(ns_rwset);
+                                }
+                            }
+                        }
                     }
-                  }
+
+                    transaction.ns_rwsets = ns_rwsets;
+                    transactions.push(transaction);
+
                 }
-      
-                transaction.ns_rwsets = ns_rwsets;
-                transactions.push(transaction);
-      
-              }
             }
-      
+
             returnBlock.transactions = transactions;
             returnBlockchain.push(returnBlock);
-   
-        }      
-  
+
+        }
+
 
         // Disconnect from the gateway.
         await gateway.disconnect();

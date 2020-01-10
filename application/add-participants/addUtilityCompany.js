@@ -12,8 +12,8 @@ const path = require('path');
 const configPath = path.join(process.cwd(), '..', '/config.json');
 const configJSON = fs.readFileSync(configPath, 'utf8');
 const config = JSON.parse(configJSON);
-var connection_file = config.connection_file;
-var gatewayDiscovery = config.gatewayDiscovery;
+let connection_file = config.connection_file;
+let gatewayDiscovery = config.gatewayDiscovery;
 
 const ccpPath = path.resolve(__dirname, '..', connection_file);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
@@ -51,11 +51,11 @@ async function addUtilityCompany() {
         // Submit the specified transaction.
         //console.log('Transaction has been submitted');
         console.log('\nSubmit "AddUtilityCompany" transaction.');
-        var utilityCompanyId = "U1";
-        var name = "United";
-        var coinsBalance = "10000";
-        var energyValue = "100";
-        var energyUnits = "kwh";
+        let utilityCompanyId = 'U1';
+        let name = 'United';
+        let coinsBalance = '10000';
+        let energyValue = '100';
+        let energyUnits = 'kwh';
 
         const addUtilityCompanyResponse = await contract.submitTransaction('AddUtilityCompany', utilityCompanyId, name, coinsBalance, energyValue, energyUnits);
         console.log('addUtilityCompanyResponse_JSON.parse: ');
@@ -68,7 +68,7 @@ async function addUtilityCompany() {
 
 
         console.log('\nGet utility companies');
-        const responseResidents = await contract.evaluateTransaction('GetState', "utilityCompanies");        
+        const responseResidents = await contract.evaluateTransaction('GetState', 'utilityCompanies');
         console.log('responseResidents_JSON.parse_response: ');
         console.log(JSON.parse(JSON.parse(responseResidents.toString())));
 

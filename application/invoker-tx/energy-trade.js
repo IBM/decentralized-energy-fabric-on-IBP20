@@ -12,8 +12,8 @@ const path = require('path');
 const configPath = path.join(process.cwd(), '..', '/config.json');
 const configJSON = fs.readFileSync(configPath, 'utf8');
 const config = JSON.parse(configJSON);
-var connection_file = config.connection_file;
-var gatewayDiscovery = config.gatewayDiscovery;
+let connection_file = config.connection_file;
+let gatewayDiscovery = config.gatewayDiscovery;
 
 const ccpPath = path.resolve(__dirname, '..', connection_file);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
@@ -50,10 +50,10 @@ async function tradeEnergy() {
         // Get the contract from the network.
         const contract = network.getContract('decentralizedenergy');
         console.log('\nSubmit EnergyTrade transaction.');
-        var energyRate = "1";
-        var energyValue = "10";
-        var energyReceiverId = utilityCompanyId;
-        var energySenderId = residentId;
+        let energyRate = '1';
+        let energyValue = '10';
+        let energyReceiverId = utilityCompanyId;
+        let energySenderId = residentId;
 
         const energyTradeResponse = await contract.submitTransaction('EnergyTrade', energyRate, energyValue, energyReceiverId, energySenderId);
         // console.log('energyTradeResponse: ')
