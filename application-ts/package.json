@@ -7,7 +7,7 @@
         "npm": ">=5"
     },
     "scripts": {
-        "lint": "eslint .",
+        "lint": "tslint -c tslint.json 'src/**/*.ts'",
         "pretest": "npm run lint",
         "test": "nyc mocha -r ts-node/register src/**/*.spec.ts",
         "build": "tsc",
