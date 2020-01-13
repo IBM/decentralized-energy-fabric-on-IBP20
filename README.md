@@ -571,7 +571,7 @@ You can go to the IBM Blockchain Platform v2 console to monitor your network and
 
 <br>
 <p align="center">
-  <img src="docs/doc-gifs/channel-block.gif">
+  <img src="https://user-images.githubusercontent.com/8854447/72288761-c24a0500-3617-11ea-8fcc-101a78941c82.gif">
 </p>
 <br>
 
