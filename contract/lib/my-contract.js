@@ -159,7 +159,7 @@ class MyContract extends Contract {
         }
 
         let sender = JSON.parse(senderData);
-        let receiver = JSON.parse(senderData);
+        let receiver = JSON.parse(receiverData);
 
         if (cid.getID() !== sender.participantId) {
             throw new Error('Incorrect ID used');
