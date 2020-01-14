@@ -30,7 +30,7 @@ When you have completed this code pattern, you will understand how to:
 1. The Blockchain Operator clones the GitHub repo with the Decentralized Energy smart contract.
 2. The Blockchain Operator uses the IBM Blockchain VSCode Extension to package the smart contract.
 3. The Blockchain Operator creates a IBM Blockchain Platform 2Install chaincode on the peer node.
-4. The IBM Blockchain Platform 2.0 creates a Hyperledger Fabric network onto a IBM Kubernetes Service, enabling us to install and instantiate the Decentralized Energy smart contract on the network.
+4. The IBM Blockchain Platform 2.0 creates a Hyperledger Fabric network onto a IBM Cloud Kubernetes Service, enabling us to install and instantiate the Decentralized Energy smart contract on the network.
 5. The Decentralized Energy web app uses the Hyperledger Fabric Node.js SDK to submit transactions to the Hyperledger Fabric network running on IBM Cloud.
 6. The Residents, Banks, and Utility Companies interact with the Decentralized Energy web-app and all transaction details are saved onto the IBM Blockchain Platform, unbeknown to the end-user. 
 
@@ -106,7 +106,7 @@ Now, we will start creating our Hyperledger Fabric network on the IBM Cloud.
 
 ## 3. Create IBM Cloud services
 
-* Create the [IBM Cloud Kubernetes Service](https://cloud.ibm.com/kubernetes/catalog/cluster). You can find the service in the `Catalog`. For this code pattern, we can use the `Free` cluster, and give it a name. Note, that the IBM Cloud allows one instance of a free cluster which expires after 30 days. **Note: it could take 20 minutes for the Kubernetes Service setup to complete**.
+* Create the [IBM Cloud Kubernetes Service](https://cloud.ibm.com/kubernetes/catalog/cluster). You can find the service in the `Catalog`. For this code pattern, we can use the `Free` cluster, and give it a name. Note, that the IBM Cloud allows one instance of a free cluster which expires after 30 days. **Note: it could take 20 minutes for the IBM Cloud Kubernetes Service setup to complete**.
 
 <br>
 <p align="center">
@@ -122,7 +122,7 @@ Now, we will start creating our Hyperledger Fabric network on the IBM Cloud.
 </p>
 <br>
 
-* After your kubernetes cluster is up and running, you can deploy your IBM Blockchain Platform on the cluster. Again - wait for the Kubernetes service to indicate it was deployed. The IBM Blockchain Platform service walks through few steps and finds your cluster on the IBM Cloud to deploy the service on.
+* After your kubernetes cluster is up and running, you can deploy your IBM Blockchain Platform on the cluster. Again - wait for the IBM Cloud Kubernetes service to indicate it was deployed. The IBM Blockchain Platform service walks through few steps and finds your cluster on the IBM Cloud to deploy the service on.
 
 <br>
 <p align="center">
