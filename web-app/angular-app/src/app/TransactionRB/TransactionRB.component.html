@@ -33,12 +33,14 @@
             
             <p>Resident: 
               <select name="residents" formControlName="formResidentID">
+                <option [value]=null></option>
                 <option *ngFor="let resident of allResidents" value="{{resident.residentId}}">{{resident.residentId}}</option>
               </select>
             </p>           
 
             <p>Bank: 
               <select name="banks" formControlName="formBankID" >
+                <option [value]=null></option>
                 <option *ngFor="let bank of allBanks" value="{{bank.bankId}}">{{bank.bankId}}</option>
               </select>
             </p>

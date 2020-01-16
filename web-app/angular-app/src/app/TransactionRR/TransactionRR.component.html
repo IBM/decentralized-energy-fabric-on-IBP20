@@ -24,14 +24,16 @@
             
             <p>Producer:           
               <select name="residents" formControlName="producerResidentID" >
-                <option *ngFor="let resident of allResidents" value="{{resident.residentId}}">{{resident.residentId}}</option>
+                  <option [value]=null></option>
+                  <option *ngFor="let resident of allResidents" value="{{resident.residentId}}">{{resident.residentId}}</option>
               </select>
               </p> 
               
 
               <p>Consumer: 
               <select name="residents" formControlName="consumerResidentID" >
-                <option *ngFor="let resident of allResidents" value="{{resident.residentId}}">{{resident.residentId}}</option>
+                  <option [value]=null></option>
+                  <option *ngFor="let resident of allResidents" value="{{resident.residentId}}">{{resident.residentId}}</option>
               </select>
               </p>
               

@@ -32,6 +32,7 @@
             
             <p>Resident: 
               <select name="residents" formControlName="formResidentID">
+                <option [value]=null></option>
                 <option *ngFor="let resident of allResidents" value="{{resident.residentId}}">{{resident.residentId}}</option>
               </select>
             </p>           
@@ -39,6 +40,7 @@
 
             <p>Utility Company:
               <select name="utilityCompanys" formControlName="formUtilityID" >
+                <option [value]=null></option>
                 <option *ngFor="let utilityCompany of allUtilityCompanys" value="{{utilityCompany.utilityCompanyId}}">{{utilityCompany.utilityCompanyId}}</option>
               </select>
             </p>

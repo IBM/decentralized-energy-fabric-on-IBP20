@@ -12,8 +12,8 @@ const path = require('path');
 const configPath = path.join(process.cwd(), '..', '/config.json');
 const configJSON = fs.readFileSync(configPath, 'utf8');
 const config = JSON.parse(configJSON);
-var connection_file = config.connection_file;
-var gatewayDiscovery = config.gatewayDiscovery;
+let connection_file = config.connection_file;
+let gatewayDiscovery = config.gatewayDiscovery;
 
 const ccpPath = path.resolve(__dirname, '..', connection_file);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
@@ -51,27 +51,27 @@ async function addResident() {
         // Submit the specified transaction.
         //console.log('Transaction has been submitted');
         console.log('\nSubmit "AddResident" transaction.');
-        var residentId = "R1";
-        var firstName = "Carlos";
-        var lastName = "Roca";
-        var coinsBalance = "1000";
-        var energyValue = "100";
-        var energyUnits = "kwh";
-        var cashBalance = "100";
-        var cashCurrency = "USD";
+        let residentId = 'R1';
+        let firstName = 'Carlos';
+        let lastName = 'Roca';
+        let coinsBalance = '1000';
+        let energyValue = '100';
+        let energyUnits = 'kwh';
+        let cashBalance = '100';
+        let cashCurrency = 'USD';
 
-        const addResidentResponse = await contract.submitTransaction('AddResident', residentId, firstName, lastName, coinsBalance, energyValue, energyUnits, cashBalance, cashCurrency);        
+        const addResidentResponse = await contract.submitTransaction('AddResident', residentId, firstName, lastName, coinsBalance, energyValue, energyUnits, cashBalance, cashCurrency);
         console.log('addResidentResponse_JSON.parse: ');
         console.log(JSON.parse(JSON.parse(addResidentResponse.toString())));
 
         console.log('\nGet residentId state: ' + residentId);
-        const residentIdResponse = await contract.evaluateTransaction('GetState', residentId);        
+        const residentIdResponse = await contract.evaluateTransaction('GetState', residentId);
         console.log('residentIdResponse_JSON.parse_response: ');
         console.log(JSON.parse(JSON.parse(residentIdResponse.toString())));
 
 
         console.log('\nGet residents');
-        const responseResidents = await contract.evaluateTransaction('GetState', "residents");
+        const responseResidents = await contract.evaluateTransaction('GetState', 'residents');
         console.log('responseResidents_JSON.parse_response: ');
         console.log(JSON.parse(JSON.parse(responseResidents.toString())));
 

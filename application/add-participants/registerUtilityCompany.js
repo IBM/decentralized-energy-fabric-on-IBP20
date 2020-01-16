@@ -12,10 +12,10 @@ const path = require('path');
 const configPath = path.join(process.cwd(), '..', 'config.json');
 const configJSON = fs.readFileSync(configPath, 'utf8');
 const config = JSON.parse(configJSON);
-var connection_file = config.connection_file;
-var appAdmin = config.appAdmin;
-var orgMSPID = config.orgMSPID;
-var gatewayDiscovery = config.gatewayDiscovery;
+let connection_file = config.connection_file;
+let appAdmin = config.appAdmin;
+let orgMSPID = config.orgMSPID;
+let gatewayDiscovery = config.gatewayDiscovery;
 
 const ccpPath = path.resolve(__dirname, '..', connection_file);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
