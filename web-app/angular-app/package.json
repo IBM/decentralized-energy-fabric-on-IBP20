@@ -26,7 +26,7 @@
     "@auth0/angular-jwt": "1.1.0",
     "bootstrap": "^3.3.7",
     "concurrently": "^3.1.0",
-    "config": "^1.21.0",
+    "config": "^3.3.8",
     "core-js": "^2.4.1",
     "eslint": "^6.8.0",
     "jquery": "^3.2.1",
@@ -35,7 +35,7 @@
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.1",
+    "@angular/cli": "15.0.4",
     "@angular/compiler-cli": "^4.3.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
